@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Advisory - WeMen Platform</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+    <style>
+        /* Chat Specific Styles */
+        .chat-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .chat-header i {
+            font-size: 24px;
+        }
+        
+        .chat-header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .message {
+            display: flex;
+            flex-direction: column;
+            max-width: 80%;
+        }
+        
+        .message.user {
+            align-self: flex-end;
+        }
+        
+        .message.bot {
+            align-self: flex-start;
+        }
+        
+        .message-content {
+            padding: 12px 15px;
+            border-radius: 18px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .message.user .message-content {
+            background-color: var(--primary-color);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .message.bot .message-content {
+            background-color: #f1f1f1;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .message-time {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 5px;
+            align-self: flex-end;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 16px;
+        }
+        
+        .chat-input button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .chat-input button:hover {
+            background-color: #303f9f;
+        }
+        
+        .chat-input button i {
+            font-size: 20px;
+        }
+        
+        .chat-disclaimer {
+            max-width: 800px;
+            margin: 20px auto 40px;
+            padding: 15px 20px;
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            border-radius: var(--border-radius);
+        }
+        
+        .chat-disclaimer h3 {
+            margin-top: 0;
+            color: #ff8f00;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-disclaimer p {
+            margin-bottom: 0;
+            color: #5d4037;
+        }
+        
+        .legal-topics {
+            max-width: 800px;
+            margin: 40px auto;
+        }
+        
+        .legal-topics h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .topic-button {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .topic-button:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .topic-button i {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .topic-button h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>WeMen</h1>
+                <p class="tagline">Support for Men Facing False Accusations</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="forum.html">Community Forum</a></li>
+                    <li><a href="legal-advice.html" class="active">Legal Advisory</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="lawyer-directory.html">Lawyer Directory</a></li>
+                    <li><a href="submit-case.html" class="btn-primary">Submit Your Case</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button id="loginBtn" class="btn-secondary">Login</button>
+                <button id="registerBtn" class="btn-primary">Register</button>
+                <div id="userProfile" class="user-profile hidden">
+                    <span id="userName">User</span>
+                    <button id="logoutBtn" class="btn-secondary">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Legal Advisory Chatbot</h1>
+            <p>Get preliminary legal guidance through our advisory chatbot. Ask questions about legal procedures, rights, and next steps.</p>
+        </div>
+    </section>
+
+    <section class="legal-topics">
+        <div class="container">
+            <h2>Common Legal Topics</h2>
+            <p class="text-center">Click on any topic to get instant guidance from our chatbot</p>
+            <div class="topics-grid">
+                <div class="topic-button" data-topic="ipc 498a">
+                    <i class="fas fa-gavel"></i>
+                    <h3>IPC 498A</h3>
+                </div>
+                <div class="topic-button" data-topic="divorce">
+                    <i class="fas fa-file-contract"></i>
+                    <h3>Divorce Cases</h3>
+                </div>
+                <div class="topic-button" data-topic="custody">
+                    <i class="fas fa-child"></i>
+                    <h3>Child Custody</h3>
+                </div>
+                <div class="topic-button" data-topic="harassment">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Harassment</h3>
+                </div>
+                <div class="topic-button" data-topic="defamation">
+                    <i class="fas fa-comment-slash"></i>
+                    <h3>Defamation</h3>
+                </div>
+                <div class="topic-button" data-topic="evidence">
+                    <i class="fas fa-search"></i>
+                    <h3>Evidence Collection</h3>
+                </div>
+                <div class="topic-button" data-topic="bail">
+                    <i class="fas fa-unlock"></i>
+                    <h3>Bail Procedures</h3>
+                </div>
+                <div class="topic-button" data-topic="rights">
+                    <i class="fas fa-balance-scale"></i>
+                    <h3>Legal Rights</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="chat-container">
+        <div class="chat-header">
+            <i class="fas fa-robot"></i>
+            <h2>Legal Advisory Chatbot</h2>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <!-- Messages will be added dynamically -->
+        </div>
+        <form id="chatForm" class="chat-input">
+            <input type="text" id="messageInput" placeholder="Type your legal question here..." required>
+            <button type="submit">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+
+    <div class="chat-disclaimer">
+        <h3><i class="fas fa-exclamation-circle"></i> Disclaimer</h3>
+        <p>This chatbot provides general legal information and is not a substitute for professional legal advice. The information provided is based on common scenarios and may not apply to your specific situation. Always consult with a qualified lawyer for personalized legal advice.</p>
+    </div>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Need Personalized Legal Advice?</h2>
+            <p>Our chatbot provides general guidance, but for personalized legal advice, connect with a specialized lawyer.</p>
+            <div class="cta-buttons">
+                <a href="lawyer-directory.html" class="btn-primary">Find a Lawyer</a>
+                <a href="submit-case.html" class="btn-secondary">Submit Your Case</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>WeMen</h3>
+                    <p>Support for men facing false accusations. We're here to help you navigate through difficult times.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="forum.html">Community Forum</a></li>
+                        <li><a href="legal-advice.html">Legal Advisory</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="lawyer-directory.html">Lawyer Directory</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <p>Email: support@wemen.org</p>
+                    <p>Helpline: +91 1234567890</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 WeMen. All rights reserved.</p>
+                <p><a href="privacy-policy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+                <div class="social-login">
+                    <p>Or login with:</p>
+                    <button type="button" id="googleLogin" class="btn-google">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                </div>
+                <p class="form-footer">Don't have an account? <a href="#" id="showRegister">Register</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Register</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">Register</button>
+                <div class="social-login">
+                    <p>Or register with:</p>
+                    <button type="button" id="googleRegister" class="btn-google">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                </div>
+                <p class="form-footer">Already have an account? <a href="#" id="showLogin">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Topic buttons functionality
+        document.querySelectorAll('.topic-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const topic = button.getAttribute('data-topic');
+                document.getElementById('messageInput').value = `Tell me about ${topic}`;
+                document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+            });
+        });
+    </script>
+</body>
+</html> 

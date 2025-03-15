@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - WeMen Platform</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+    <style>
+        /* Resources Page Specific Styles */
+        .resources-container {
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+        
+        .resource-section {
+            margin-bottom: 60px;
+        }
+        
+        .resource-section h2 {
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .resource-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .resource-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .resource-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .resource-card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .resource-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .resource-card:hover .resource-card-image img {
+            transform: scale(1.05);
+        }
+        
+        .resource-card-content {
+            padding: 20px;
+        }
+        
+        .resource-card-content h3 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .resource-card-content p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        
+        .resource-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+        
+        .resource-card-footer .date {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        .resource-card-footer .btn-secondary {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+        
+        .legal-rights {
+            background-color: #f5f5f5;
+            padding: 40px 0;
+        }
+        
+        .rights-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .right-item {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .right-item h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .right-item h3 i {
+            font-size: 20px;
+        }
+        
+        .right-item p {
+            color: var(--text-color);
+        }
+        
+        .helplines {
+            margin: 60px 0;
+        }
+        
+        .helpline-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .helpline-table th,
+        .helpline-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .helpline-table th {
+            background-color: #f5f5f5;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .helpline-table tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .helpline-table td:last-child {
+            text-align: center;
+        }
+        
+        .helpline-table .btn-call {
+            background-color: var(--success-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+        
+        .helpline-table .btn-call:hover {
+            background-color: #3d8b40;
+        }
+        
+        .downloads {
+            margin-bottom: 60px;
+        }
+        
+        .download-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .download-item {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .download-item i {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .download-item h3 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .download-item p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .download-item .btn-download {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 20px;
+            border-radius: var(--border-radius);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        
+        .download-item .btn-download:hover {
+            background-color: #303f9f;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>WeMen</h1>
+                <p class="tagline">Support for Men Facing False Accusations</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="forum.html">Community Forum</a></li>
+                    <li><a href="legal-advice.html">Legal Advisory</a></li>
+                    <li><a href="resources.html" class="active">Resources</a></li>
+                    <li><a href="lawyer-directory.html">Lawyer Directory</a></li>
+                    <li><a href="submit-case.html" class="btn-primary">Submit Your Case</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button id="loginBtn" class="btn-secondary">Login</button>
+                <button id="registerBtn" class="btn-primary">Register</button>
+                <div id="userProfile" class="user-profile hidden">
+                    <span id="userName">User</span>
+                    <button id="logoutBtn" class="btn-secondary">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Resources & Information</h1>
+            <p>Access valuable resources, case studies, legal information, and helpline numbers to help you navigate through false accusations.</p>
+        </div>
+    </section>
+
+    <div class="resources-container">
+        <section class="resource-section">
+            <div class="container">
+                <h2>Case Studies & Success Stories</h2>
+                <div class="resource-cards">
+                    <div class="resource-card">
+                        <div class="resource-card-image">
+                            <img src="https://via.placeholder.com/400x200" alt="Case Study 1">
+                        </div>
+                        <div class="resource-card-content">
+                            <h3>Overcoming False IPC 498A Accusations</h3>
+                            <p>How Rajesh from Delhi successfully fought against false domestic violence accusations and cleared his name.</p>
+                        </div>
+                        <div class="resource-card-footer">
+                            <span class="date">June 15, 2023</span>
+                            <a href="#" class="btn-secondary">Read More</a>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-image">
+                            <img src="https://via.placeholder.com/400x200" alt="Case Study 2">
+                        </div>
+                        <div class="resource-card-content">
+                            <h3>Winning Child Custody Battle</h3>
+                            <p>Vikram's journey of fighting false accusations during a custody battle and gaining joint custody of his children.</p>
+                        </div>
+                        <div class="resource-card-footer">
+                            <span class="date">May 22, 2023</span>
+                            <a href="#" class="btn-secondary">Read More</a>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-image">
+                            <img src="https://via.placeholder.com/400x200" alt="Case Study 3">
+                        </div>
+                        <div class="resource-card-content">
+                            <h3>Workplace Harassment False Claims</h3>
+                            <p>How Amit successfully defended himself against false workplace harassment accusations with proper evidence.</p>
+                        </div>
+                        <div class="resource-card-footer">
+                            <span class="date">April 10, 2023</span>
+                            <a href="#" class="btn-secondary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="legal-rights">
+            <div class="container">
+                <h2>Know Your Legal Rights</h2>
+                <div class="rights-list">
+                    <div class="right-item">
+                        <h3><i class="fas fa-gavel"></i> Right to Remain Silent</h3>
+                        <p>You have the right to remain silent during police questioning. Anything you say can be used against you in court. It's advisable to speak only in the presence of your lawyer.</p>
+                    </div>
+                    
+                    <div class="right-item">
+                        <h3><i class="fas fa-user-tie"></i> Right to Legal Representation</h3>
+                        <p>You have the right to consult with a lawyer before answering any questions. If you cannot afford a lawyer, you can request for a legal aid lawyer to be appointed.</p>
+                    </div>
+                    
+                    <div class="right-item">
+                        <h3><i class="fas fa-file-alt"></i> Right to Know Charges</h3>
+                        <p>You have the right to be informed about the specific charges against you and the evidence supporting those charges.</p>
+                    </div>
+                    
+                    <div class="right-item">
+                        <h3><i class="fas fa-unlock"></i> Right to Apply for Bail</h3>
+                        <p>You have the right to apply for regular or anticipatory bail depending on the nature of the case and charges against you.</p>
+                    </div>
+                    
+                    <div class="right-item">
+                        <h3><i class="fas fa-balance-scale"></i> Presumption of Innocence</h3>
+                        <p>You are presumed innocent until proven guilty. The burden of proof lies with the prosecution to prove your guilt beyond reasonable doubt.</p>
+                    </div>
+                    
+                    <div class="right-item">
+                        <h3><i class="fas fa-search"></i> Protection Against Illegal Searches</h3>
+                        <p>You are protected against illegal searches and seizures. Police generally need a warrant to search your property unless specific exceptions apply.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="helplines">
+            <div class="container">
+                <h2>Helpline Numbers</h2>
+                <p>These helplines provide support, guidance, and assistance to men facing false accusations. Don't hesitate to reach out for help.</p>
+                
+                <table class="helpline-table">
+                    <thead>
+                        <tr>
+                            <th>Organization</th>
+                            <th>Services</th>
+                            <th>Operating Hours</th>
+                            <th>Contact</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Men's Rights Association</td>
+                            <td>Legal advice, emotional support, case guidance</td>
+                            <td>24/7</td>
+                            <td>+91 9876543210</td>
+                            <td><a href="tel:+919876543210" class="btn-call"><i class="fas fa-phone"></i> Call Now</a></td>
+                        </tr>
+                        <tr>
+                            <td>Save Indian Family Foundation</td>
+                            <td>Legal support, counseling, documentation help</td>
+                            <td>10 AM - 8 PM</td>
+                            <td>+91 9876543211</td>
+                            <td><a href="tel:+919876543211" class="btn-call"><i class="fas fa-phone"></i> Call Now</a></td>
+                        </tr>
+                        <tr>
+                            <td>Men Welfare Trust</td>
+                            <td>Emotional support, legal guidance, community support</td>
+                            <td>9 AM - 9 PM</td>
+                            <td>+91 9876543212</td>
+                            <td><a href="tel:+919876543212" class="btn-call"><i class="fas fa-phone"></i> Call Now</a></td>
+                        </tr>
+                        <tr>
+                            <td>WeMen Legal Aid</td>
+                            <td>Free legal consultation, case strategy, documentation</td>
+                            <td>24/7</td>
+                            <td>+91 1234567890</td>
+                            <td><a href="tel:+911234567890" class="btn-call"><i class="fas fa-phone"></i> Call Now</a></td>
+                        </tr>
+                        <tr>
+                            <td>Men's Rights Protection Society</td>
+                            <td>Legal advice, emotional counseling, mediation</td>
+                            <td>10 AM - 6 PM</td>
+                            <td>+91 9876543213</td>
+                            <td><a href="tel:+919876543213" class="btn-call"><i class="fas fa-phone"></i> Call Now</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section class="downloads">
+            <div class="container">
+                <h2>Downloadable Resources</h2>
+                <p>Access these valuable resources to help you understand your rights and navigate through legal procedures.</p>
+                
+                <div class="download-list">
+                    <div class="download-item">
+                        <i class="fas fa-file-pdf"></i>
+                        <h3>Legal Rights Handbook</h3>
+                        <p>Comprehensive guide to your legal rights when facing false accusations</p>
+                        <a href="#" class="btn-download"><i class="fas fa-download"></i> Download PDF</a>
+                    </div>
+                    
+                    <div class="download-item">
+                        <i class="fas fa-file-alt"></i>
+                        <h3>Evidence Collection Guide</h3>
+                        <p>Step-by-step guide on collecting and preserving evidence for your case</p>
+                        <a href="#" class="btn-download"><i class="fas fa-download"></i> Download PDF</a>
+                    </div>
+                    
+                    <div class="download-item">
+                        <i class="fas fa-file-word"></i>
+                        <h3>Legal Response Templates</h3>
+                        <p>Templates for legal responses and applications for various scenarios</p>
+                        <a href="#" class="btn-download"><i class="fas fa-download"></i> Download DOC</a>
+                    </div>
+                    
+                    <div class="download-item">
+                        <i class="fas fa-file-powerpoint"></i>
+                        <h3>Understanding IPC 498A</h3>
+                        <p>Detailed presentation on IPC 498A, its misuse, and defense strategies</p>
+                        <a href="#" class="btn-download"><i class="fas fa-download"></i> Download PPT</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Need Personalized Support?</h2>
+            <p>Our team is ready to help you navigate through your specific situation.</p>
+            <div class="cta-buttons">
+                <a href="submit-case.html" class="btn-primary">Submit Your Case</a>
+                <a href="lawyer-directory.html" class="btn-secondary">Find a Lawyer</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>WeMen</h3>
+                    <p>Support for men facing false accusations. We're here to help you navigate through difficult times.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="forum.html">Community Forum</a></li>
+                        <li><a href="legal-advice.html">Legal Advisory</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="lawyer-directory.html">Lawyer Directory</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <p>Email: support@wemen.org</p>
+                    <p>Helpline: +91 1234567890</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 WeMen. All rights reserved.</p>
+                <p><a href="privacy-policy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+                <div class="social-login">
+                    <p>Or login with:</p>
+                    <button type="button" id="googleLogin" class="btn-google">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                </div>
+                <p class="form-footer">Don't have an account? <a href="#" id="showRegister">Register</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Register</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">Register</button>
+                <div class="social-login">
+                    <p>Or register with:</p>
+                    <button type="button" id="googleRegister" class="btn-google">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                </div>
+                <p class="form-footer">Already have an account? <a href="#" id="showLogin">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html> 
