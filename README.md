@@ -1,15 +1,24 @@
-# WeMen Platform
+# Modified WeMen Platform
 
-A comprehensive platform providing support for men facing false accusations. The platform offers resources, community support, legal advisory, and connections to specialized lawyers.
+A comprehensive platform providing support for men facing false accusations, with enhanced UI/UX and improved accessibility. This is a modified version of the original WeMen platform with updated design elements and streamlined navigation.
 
 ## Features
 
-- **Home Page**: Overview of the platform and its services
+- **Home Page**: Overview of the platform and its services with enhanced UI
 - **Community Forum**: Connect with others who have faced similar situations
 - **Legal Advisory**: Get preliminary legal guidance through our chatbot
 - **Resources**: Access valuable resources, case studies, and legal information
 - **Lawyer Directory**: Find specialized lawyers who can help with your specific case
 - **Case Submission**: Submit your case details securely and anonymously
+
+## Enhancements in this Version
+
+- Improved color scheme with modern palette
+- Enhanced navigation with streamlined menu options
+- More prominent "Join Community" button for better engagement
+- Simplified "Submit Case" access (only available from home page)
+- Responsive design improvements for better mobile experience
+- Accessibility enhancements for better usability
 
 ## Technologies Used
 
