@@ -21,20 +21,19 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="#" class="active">Home</a></li>
-                    <li><a href="pages/forum.html">Community Forum</a></li>
-                    <li><a href="pages/legal-advice.html">Legal Advisory</a></li>
-                    <li><a href="pages/resources.html">Resources</a></li>
-                    <li><a href="pages/lawyer-directory.html">Lawyer Directory</a></li>
-                    <li><a href="pages/submit-case.html" class="btn-primary">Submit Your Case</a></li>
+                    <li><a href="#" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="pages/forum.html"><i class="fas fa-comments"></i> Community</a></li>
+                    <li><a href="pages/legal-advice.html"><i class="fas fa-gavel"></i> Legal Advisory</a></li>
+                    <li><a href="pages/resources.html"><i class="fas fa-book"></i> Resources</a></li>
+                    <li><a href="pages/lawyer-directory.html"><i class="fas fa-user-tie"></i> Lawyers</a></li>
                 </ul>
             </nav>
             <div class="auth-buttons">
-                <button id="loginBtn" class="btn-secondary">Login</button>
-                <button id="registerBtn" class="btn-primary">Register</button>
+                <button id="loginBtn" class="btn-secondary"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <button id="registerBtn" class="btn-primary"><i class="fas fa-user-plus"></i> Register</button>
                 <div id="userProfile" class="user-profile hidden">
                     <span id="userName">User</span>
-                    <button id="logoutBtn" class="btn-secondary">Logout</button>
+                    <button id="logoutBtn" class="btn-secondary"><i class="fas fa-sign-out-alt"></i> Logout</button>
                 </div>
             </div>
         </div>
@@ -47,7 +46,7 @@
                 <p>WeMen provides support, resources, and community for men facing false accusations.</p>
                 <div class="hero-buttons">
                     <a href="pages/submit-case.html" class="btn-primary">Submit Your Case</a>
-                    <a href="pages/forum.html" class="btn-secondary">Join Community</a>
+                    <a href="pages/forum.html" class="btn-community"><i class="fas fa-users"></i> Join Community</a>
                 </div>
             </div>
         </div>
@@ -139,7 +138,7 @@
             <p>Join our community today and get the support you need.</p>
             <div class="cta-buttons">
                 <a href="pages/submit-case.html" class="btn-primary">Submit Your Case</a>
-                <a href="pages/forum.html" class="btn-secondary">Join Community</a>
+                <a href="pages/forum.html" class="btn-community"><i class="fas fa-users"></i> Join Community</a>
             </div>
         </div>
     </section>
@@ -179,6 +178,11 @@
             </div>
         </div>
     </footer>
+
+    <!-- Floating Submit Case Button -->
+    <a href="pages/submit-case.html" class="floating-submit-btn">
+        <i class="fas fa-file-alt"></i> Submit Your Case
+    </a>
 
     <!-- Login Modal -->
     <div id="loginModal" class="modal">

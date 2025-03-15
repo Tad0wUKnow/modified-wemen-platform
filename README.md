@@ -1,83 +1,48 @@
 # WeMen Platform
 
-WeMen is a web platform designed to support men facing false accusations. It provides resources, community support, and legal guidance to help individuals navigate through difficult situations.
+A comprehensive platform providing support for men facing false accusations. The platform offers resources, community support, legal advisory, and connections to specialized lawyers.
 
 ## Features
 
-- **Case Submission**: Users can anonymously submit their case details and supporting evidence.
-- **Community Forum**: A forum where affected individuals can share experiences and seek guidance.
-- **Legal Advisory Chatbot**: Pre-fed legal advice based on common questions and scenarios.
-- **Lawyer Directory**: A list of lawyers and NGOs specializing in false accusation cases.
-- **Resources Page**: Information about legal rights, case studies, and helpline numbers.
-- **Admin Dashboard**: For administrators to manage cases, users, and forum content.
+- **Home Page**: Overview of the platform and its services
+- **Community Forum**: Connect with others who have faced similar situations
+- **Legal Advisory**: Get preliminary legal guidance through our chatbot
+- **Resources**: Access valuable resources, case studies, and legal information
+- **Lawyer Directory**: Find specialized lawyers who can help with your specific case
+- **Case Submission**: Submit your case details securely and anonymously
 
-## Tech Stack
+## Technologies Used
 
-- **Frontend**: HTML, CSS, JavaScript
-- **Backend**: Firebase (Authentication, Firestore, Storage)
-- **Hosting**: Can be deployed on Vercel, Netlify, or Firebase Hosting
+- HTML5
+- CSS3
+- JavaScript
+- Firebase (Authentication, Firestore, Storage)
+- Font Awesome for icons
 
 ## Project Structure
 
 ```
 wemen-platform/
-├── index.html              # Main landing page
 ├── css/
-│   └── styles.css          # Main stylesheet
+│   └── styles.css
 ├── js/
-│   ├── firebase-config.js  # Firebase configuration
-│   ├── auth.js             # Authentication functionality
-│   └── main.js             # Main JavaScript functionality
-├── images/                 # Image assets
+│   ├── auth.js
+│   ├── firebase-config.js
+│   └── main.js
 ├── pages/
-│   ├── forum.html          # Community forum page
-│   ├── legal-advice.html   # Legal advisory chatbot
-│   ├── resources.html      # Resources and information
-│   ├── lawyer-directory.html # Lawyer directory
-│   └── submit-case.html    # Case submission form
-└── admin/
-    ├── dashboard.html      # Admin dashboard
-    ├── cases.html          # Case management
-    ├── users.html          # User management
-    ├── forum-management.html # Forum management
-    └── js/
-        └── admin.js        # Admin functionality
+│   ├── forum.html
+│   ├── lawyer-directory.html
+│   ├── legal-advice.html
+│   ├── resources.html
+│   └── submit-case.html
+└── index.html
 ```
 
-## Setup Instructions
+## Setup and Installation
 
-1. **Firebase Setup**:
-   - Create a Firebase project at [firebase.google.com](https://firebase.google.com)
-   - Enable Authentication (Email/Password and Google Sign-in)
-   - Create a Firestore database
-   - Enable Storage for file uploads
-   - Update the Firebase configuration in `js/firebase-config.js`
-
-2. **Local Development**:
-   - Clone the repository
-   - Open the project in a code editor
-   - Use a local server to run the project (e.g., Live Server extension in VS Code)
-
-3. **Deployment**:
-   - Deploy to Firebase Hosting, Vercel, or Netlify
-   - Follow the deployment instructions for your chosen platform
-
-## Firebase Collections
-
-The project uses the following Firestore collections:
-
-- **users**: User information and roles
-- **cases**: Submitted case details
-- **forum**: Forum topics and replies
-- **lawyers**: Lawyer directory information
-
-## Admin Access
-
-To create an admin user:
-1. Register a regular user account
-2. In the Firebase Console, navigate to Firestore
-3. Find the user document in the "users" collection
-4. Update the "role" field to "admin"
+1. Clone the repository
+2. Set up a Firebase project and update the firebase-config.js file with your credentials
+3. Open index.html in your browser or deploy to a web server
 
 ## Contributing
 
@@ -87,6 +52,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Contact
+## Acknowledgments
 
-For support or inquiries, please contact support@wemen.org or call our helpline at +91 1234567890. 
+- Thanks to all contributors who have helped build this platform
+- Special thanks to the legal advisors who provided guidance on the content 
