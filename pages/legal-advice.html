@@ -401,8 +401,155 @@
             button.addEventListener('click', () => {
                 const topic = button.getAttribute('data-topic');
                 document.getElementById('messageInput').value = `Tell me about ${topic}`;
-                document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+                // Trigger sendMessage directly instead of form submission event
+                sendMessage();
             });
+        });
+
+        // AI Chatbot functionality
+        async function sendMessage() {
+            const userInput = document.getElementById("messageInput").value;
+            if (!userInput) return;
+
+            const chatMessages = document.getElementById("chatMessages");
+            
+            // Add user message
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.className = 'message user';
+            userMessageDiv.innerHTML = `
+                <div class="message-content">${userInput}</div>
+                <div class="message-time">${new Date().toLocaleTimeString()}</div>
+            `;
+            chatMessages.appendChild(userMessageDiv);
+            
+            // Clear input
+            document.getElementById("messageInput").value = "";
+            
+            // Show typing indicator
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot';
+            typingDiv.innerHTML = `<div class="message-content">Typing...</div>`;
+            chatMessages.appendChild(typingDiv);
+            
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": "Bearer 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",
+                        "Content-Type": "application/json",
+                        "HTTP-Referer": window.location.href,  // Add referer header
+                        "X-Title": "LexiBot Legal Assistant"   // Add title header
+                    },
+                    body: JSON.stringify({
+                        "model": "anthropic/claude-3-haiku:beta", // Change to more reliable model
+                        "messages": [
+                            {
+                                "role": "system",
+                                "content": "You are LexiBot, a legal advisor specializing in Indian law. You can provide personal opinions as well and provide some moral support  to the clients in order to look humble. Dont limit your knowledge to legal advices only and expand your knowledge to include some moral support and some general knowledge. In some times you can add humour to the chat but don't get diverted from your role. If the user is getting too off topic than dont answer to that instead as kthem to stay in the legal aspects only."
+                            },
+                            {
+                                "role": "user",
+                                "content": userInput
+                            }
+                        ]
+                    })
+                });
+
+                // Log the full response for debugging
+                console.log("API Response status:", response.status);
+                const responseText = await response.text();
+                console.log("API Response text:", responseText);
+                
+                // Remove typing indicator
+                chatMessages.removeChild(typingDiv);
+
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.status} - ${responseText}`);
+                }
+
+                // Parse the JSON response (from text we already got)
+                let data;
+                try {
+                    data = JSON.parse(responseText);
+                } catch (e) {
+                    console.error("JSON parse error:", e);
+                    throw new Error("Failed to parse response from API");
+                }
+                
+                console.log("Parsed data:", data);
+                
+                // Extract the bot response with proper fallback
+                const botResponse = data.choices && 
+                                   data.choices[0] && 
+                                   data.choices[0].message && 
+                                   data.choices[0].message.content 
+                                   ? data.choices[0].message.content 
+                                   : "I couldn't retrieve legal information at the moment.";
+                
+                // Add bot response
+                const botMessageDiv = document.createElement('div');
+                botMessageDiv.className = 'message bot';
+                botMessageDiv.innerHTML = `
+                    <div class="message-content">${botResponse}</div>
+                    <div class="message-time">${new Date().toLocaleTimeString()}</div>
+                `;
+                chatMessages.appendChild(botMessageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            } catch (error) {
+                console.error("Error:", error);
+                
+                // Try to remove typing indicator, but don't error if it's already gone
+                try {
+                    chatMessages.removeChild(typingDiv);
+                } catch (e) {
+                    console.log("Typing indicator already removed");
+                }
+                
+                // Add error message
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'message bot';
+                errorDiv.innerHTML = `
+                    <div class="message-content">Error fetching response: ${error.message}. Please check the console for more details.</div>
+                    <div class="message-time">${new Date().toLocaleTimeString()}</div>
+                `;
+                chatMessages.appendChild(errorDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+
+        // Add welcome message on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatMessages = document.getElementById("chatMessages");
+            const welcomeDiv = document.createElement('div');
+            welcomeDiv.className = 'message bot';
+            welcomeDiv.innerHTML = `
+                <div class="message-content">
+                    Welcome to LexiBot! I'm your legal assistant specializing in Indian law. 
+                    How can I help you today? You can ask me about legal procedures, rights, or select a topic above.
+                </div>
+                <div class="message-time">${new Date().toLocaleTimeString()}</div>
+            `;
+            chatMessages.appendChild(welcomeDiv);
+            
+            // Setup the chat form submission
+            const chatForm = document.getElementById('chatForm');
+            if (chatForm) {
+                chatForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    sendMessage();
+                });
+            }
+            
+            // Add click listener directly to the send button
+            const sendButton = document.querySelector('.chat-input button');
+            if (sendButton) {
+                sendButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    sendMessage();
+                });
+            }
         });
     </script>
 </body>
