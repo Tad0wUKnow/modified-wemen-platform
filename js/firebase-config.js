@@ -1,11 +1,13 @@
 // Firebase configuration
+
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "wemen-platform.firebaseapp.com",
-    projectId: "wemen-platform",
-    storageBucket: "wemen-platform.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyDx0lEoDrem6qg29IzOiBbIg8Gp3QXNfVc",
+    authDomain: "wemen-d9ec7.firebaseapp.com",
+    projectId: "wemen-d9ec7",
+    storageBucket: "wemen-d9ec7.firebasestorage.app",
+    messagingSenderId: "30073696094",
+    appId: "1:30073696094:web:c3334d1c719b9e5e2ea9cf",
+    measurementId: "G-HK4252N6BF"
 };
 
 // Initialize Firebase
@@ -21,3 +23,27 @@ auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
     .catch((error) => {
         console.error("Firebase persistence error:", error);
     }); 
+
+/* 
+// Modern modular SDK version (if needed in the future)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDx0lEoDrem6qg29IzOiBbIg8Gp3QXNfVc",
+  authDomain: "wemen-d9ec7.firebaseapp.com",
+  projectId: "wemen-d9ec7",
+  storageBucket: "wemen-d9ec7.firebasestorage.app",
+  messagingSenderId: "30073696094",
+  appId: "1:30073696094:web:c3334d1c719b9e5e2ea9cf",
+  measurementId: "G-HK4252N6BF"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+*/
