@@ -105,6 +105,26 @@ ul {
     background-color: #c53929;
 }
 
+.btn-anonymous {
+    background-color: #455a64;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    font-size: 16px;
+}
+
+.btn-anonymous:hover {
+    background-color: #37474f;
+}
+
 .section-title {
     text-align: center;
     margin-bottom: 40px;

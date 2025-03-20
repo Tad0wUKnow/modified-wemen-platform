@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - WeMen Platform</title>
+    <title>Admin Cases - WeMen Platform</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Firebase SDK -->
@@ -21,8 +21,8 @@
             <div class="admin-menu">
                 <h3>Main</h3>
                 <ul>
-                    <li><a href="dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                    <li><a href="cases.html"><i class="fas fa-file-alt"></i> Cases</a></li>
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="cases.html" class="active"><i class="fas fa-file-alt"></i> Cases</a></li>
                     <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
                     <li><a href="forum-management.html"><i class="fas fa-comments"></i> Forum</a></li>
                 </ul>
@@ -38,60 +38,47 @@
         
         <div class="admin-content">
             <div class="admin-header">
-                <h1 class="admin-title">Dashboard</h1>
+                <h1 class="admin-title">Case Management</h1>
                 <div class="admin-user">
                     <img src="admin-logo.png" alt="Admin">
                     <span id="adminName">Admin User</span>
                 </div>
             </div>
             
-            <div class="admin-cards">
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        <div class="admin-card-icon blue">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
-                    </div>
-                    <div class="admin-card-number" id="totalCases">0</div>
-                    <div class="admin-card-label">Total Cases</div>
+            <!-- Case Filters -->
+            <div class="admin-filters">
+                <div class="filter-group">
+                    <label for="statusFilter">Status</label>
+                    <select id="statusFilter">
+                        <option value="all">All</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
                 </div>
-                
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        <div class="admin-card-icon orange">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                    </div>
-                    <div class="admin-card-number" id="pendingCases">0</div>
-                    <div class="admin-card-label">Pending Cases</div>
+                <div class="filter-group">
+                    <label for="typeFilter">Case Type</label>
+                    <select id="typeFilter">
+                        <option value="all">All Types</option>
+                        <option value="Domestic Violence">Domestic Violence</option>
+                        <option value="Sexual Harassment">Sexual Harassment</option>
+                        <option value="Workplace Discrimination">Workplace Discrimination</option>
+                        <option value="Legal Advice">Legal Advice</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
-                
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        <div class="admin-card-icon green">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                    </div>
-                    <div class="admin-card-number" id="approvedCases">0</div>
-                    <div class="admin-card-label">Approved Cases</div>
+                <div class="filter-group">
+                    <label for="searchFilter">Search</label>
+                    <input type="text" id="searchFilter" placeholder="Search by name or ID...">
                 </div>
-                
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        <div class="admin-card-icon red">
-                            <i class="fas fa-users"></i>
-                        </div>
-                    </div>
-                    <div class="admin-card-number" id="totalUsers">0</div>
-                    <div class="admin-card-label">Registered Users</div>
-                </div>
+                <button id="applyFilters" class="btn-primary"><i class="fas fa-filter"></i> Apply Filters</button>
             </div>
             
             <div class="admin-table">
                 <div class="admin-table-header">
-                    <h2 class="admin-table-title">Recent Cases</h2>
+                    <h2 class="admin-table-title">All Cases</h2>
                     <div class="admin-table-actions">
-                        <a href="cases.html" class="btn-secondary">View All</a>
+                        <button id="exportCases" class="btn-secondary"><i class="fas fa-download"></i> Export</button>
                     </div>
                 </div>
                 <table>
@@ -105,7 +92,7 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="recentCasesTable">
+                    <tbody id="casesTable">
                         <tr>
                             <td colspan="6" class="text-center">Loading cases...</td>
                         </tr>
@@ -113,30 +100,9 @@
                 </table>
             </div>
             
-            <div class="admin-table" style="margin-top: 30px;">
-                <div class="admin-table-header">
-                    <h2 class="admin-table-title">Recent Forum Activity</h2>
-                    <div class="admin-table-actions">
-                        <a href="forum-management.html" class="btn-secondary">View All</a>
-                    </div>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Topic</th>
-                            <th>Author</th>
-                            <th>Category</th>
-                            <th>Date</th>
-                            <th>Replies</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="recentForumTable">
-                        <tr>
-                            <td colspan="6" class="text-center">Loading forum topics...</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- Pagination -->
+            <div class="pagination" id="casesPagination">
+                <!-- Pagination will be generated dynamically -->
             </div>
         </div>
     </div>
@@ -201,5 +167,6 @@
     <script src="../js/firebase-config.js"></script>
     <script src="../js/auth.js"></script>
     <script src="js/admin.js"></script>
+    <script src="js/cases.js"></script>
 </body>
 </html> 

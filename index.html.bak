@@ -202,7 +202,7 @@
                 <div class="social-login">
                     <p>Or login with:</p>
                     <button type="button" id="anonymousLogin" class="btn-anonymous">
-                        <i class="fas fa-user-secret"></i> Anonymous Login
+                        <i class="fas fa-user-secret"></i> Anonymous
                     </button>
                 </div>
                 <p class="form-footer">Don't have an account? <a href="#" id="showRegister">Register</a></p>
@@ -236,7 +236,7 @@
                 <div class="social-login">
                     <p>Or register with:</p>
                     <button type="button" id="anonymousRegister" class="btn-anonymous">
-                        <i class="fas fa-user-secret"></i> Anonymous Login
+                        <i class="fas fa-user-secret"></i> Anonymous
                     </button>
                 </div>
                 <p class="form-footer">Already have an account? <a href="#" id="showLogin">Login</a></p>

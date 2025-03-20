@@ -8,8 +8,8 @@ const loginModal = document.getElementById('loginModal');
 const registerModal = document.getElementById('registerModal');
 const loginForm = document.getElementById('loginForm');
 const registerForm = document.getElementById('registerForm');
-const googleLogin = document.getElementById('googleLogin');
-const googleRegister = document.getElementById('googleRegister');
+const anonymousLogin = document.getElementById('anonymousLogin');
+const anonymousRegister = document.getElementById('anonymousRegister');
 const showRegister = document.getElementById('showRegister');
 const showLogin = document.getElementById('showLogin');
 const closeBtns = document.querySelectorAll('.close');
@@ -110,50 +110,70 @@ registerForm?.addEventListener('submit', (e) => {
         });
 });
 
-// Google Authentication
-googleLogin?.addEventListener('click', () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider)
-        .then((result) => {
-            // Check if new user
-            if (result.additionalUserInfo.isNewUser) {
-                // Create user document in Firestore
-                return db.collection('users').doc(result.user.uid).set({
-                    name: result.user.displayName,
-                    email: result.user.email,
+// Anonymous Authentication
+anonymousLogin?.addEventListener('click', () => {
+    auth.signInAnonymously()
+        .then((userCredential) => {
+            console.log("Anonymous sign-in successful");
+            
+            // Generate random username for anonymous user
+            const randomUsername = "Anonymous_" + Math.floor(1000 + Math.random() * 9000);
+            const userId = userCredential.user.uid;
+            
+            // Set the anonymous user profile with the random username
+            return userCredential.user.updateProfile({
+                displayName: randomUsername
+            }).then(() => {
+                // Create a document for the anonymous user in Firestore
+                return db.collection('users').doc(userId).set({
+                    name: randomUsername,
+                    isAnonymous: true,
                     createdAt: new Date(),
                     role: 'user'
                 });
-            }
+            });
         })
         .then(() => {
             loginModal.style.display = 'none';
         })
         .catch((error) => {
-            alert(`Google Login Error: ${error.message}`);
+            console.error("Anonymous Login Error:", error);
+            console.error("Error Code:", error.code);
+            console.error("Error Message:", error.message);
+            alert(`Anonymous Login Error: ${error.message}`);
         });
 });
 
-googleRegister?.addEventListener('click', () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider)
-        .then((result) => {
-            // Check if new user
-            if (result.additionalUserInfo.isNewUser) {
-                // Create user document in Firestore
-                return db.collection('users').doc(result.user.uid).set({
-                    name: result.user.displayName,
-                    email: result.user.email,
+anonymousRegister?.addEventListener('click', () => {
+    auth.signInAnonymously()
+        .then((userCredential) => {
+            console.log("Anonymous sign-in successful");
+            
+            // Generate random username for anonymous user
+            const randomUsername = "Anonymous_" + Math.floor(1000 + Math.random() * 9000);
+            const userId = userCredential.user.uid;
+            
+            // Set the anonymous user profile with the random username
+            return userCredential.user.updateProfile({
+                displayName: randomUsername
+            }).then(() => {
+                // Create a document for the anonymous user in Firestore
+                return db.collection('users').doc(userId).set({
+                    name: randomUsername,
+                    isAnonymous: true,
                     createdAt: new Date(),
                     role: 'user'
                 });
-            }
+            });
         })
         .then(() => {
             registerModal.style.display = 'none';
         })
         .catch((error) => {
-            alert(`Google Registration Error: ${error.message}`);
+            console.error("Anonymous Login Error:", error);
+            console.error("Error Code:", error.code);
+            console.error("Error Message:", error.message);
+            alert(`Anonymous Login Error: ${error.message}`);
         });
 });
 
@@ -173,22 +193,28 @@ auth.onAuthStateChanged((user) => {
             loginBtn.classList.add('hidden');
             registerBtn.classList.add('hidden');
             userProfile.classList.remove('hidden');
-            userName.textContent = user.displayName || 'User';
+            
+            // Display user name
+            userName.textContent = user.displayName || (user.isAnonymous ? 'Anonymous User' : 'User');
         }
         
-        // Check if admin
-        db.collection('users').doc(user.uid).get()
-            .then((doc) => {
-                if (doc.exists && doc.data().role === 'admin') {
-                    // Add admin-specific functionality here
-                    localStorage.setItem('isAdmin', 'true');
-                } else {
-                    localStorage.setItem('isAdmin', 'false');
-                }
-            })
-            .catch((error) => {
-                console.error("Error checking admin status:", error);
-            });
+        // Check if admin (anonymous users are never admin)
+        if (!user.isAnonymous) {
+            db.collection('users').doc(user.uid).get()
+                .then((doc) => {
+                    if (doc.exists && doc.data().role === 'admin') {
+                        // Add admin-specific functionality here
+                        localStorage.setItem('isAdmin', 'true');
+                    } else {
+                        localStorage.setItem('isAdmin', 'false');
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error checking admin status:", error);
+                });
+        } else {
+            localStorage.setItem('isAdmin', 'false');
+        }
     } else {
         // User is signed out
         if (loginBtn && registerBtn && userProfile) {

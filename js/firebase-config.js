@@ -18,11 +18,19 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 const storage = firebase.storage();
 
+// Enable anonymous authentication
+auth.useDeviceLanguage();
+
 // Set persistence to local
 auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
     .catch((error) => {
         console.error("Firebase persistence error:", error);
-    }); 
+    });
+
+// Export services for use in other files
+window.auth = auth;
+window.db = db;
+window.storage = storage;
 
 /* 
 // Modern modular SDK version (if needed in the future)
