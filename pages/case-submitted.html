@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit Your Case - WeMen Platform</title>
+    <title>Case Submitted Successfully - WeMen Platform</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
 </head>
 <body>
     <header>
@@ -26,7 +25,7 @@
                     <li><a href="legal-advice.html"><i class="fas fa-gavel"></i> Legal Advisory</a></li>
                     <li><a href="resources.html"><i class="fas fa-book"></i> Resources</a></li>
                     <li><a href="lawyer-directory.html"><i class="fas fa-user-tie"></i> Lawyers</a></li>
-                    <li><a href="submit-case.html" class="active"><i class="fas fa-file-alt"></i> Submit Your Case</a></li>
+                    <li><a href="submit-case.html"><i class="fas fa-file-alt"></i> Submit Your Case</a></li>
                 </ul>
             </nav>
             <div class="auth-buttons">
@@ -40,104 +39,28 @@
         </div>
     </header>
 
-    <section class="page-header">
+    <section class="success-section">
         <div class="container">
-            <h1>Submit Your Case</h1>
-            <p>Share your case details with us securely and anonymously. Our team will review your case and provide guidance.</p>
-        </div>
-    </section>
-
-    <section class="form-section">
-        <div class="container">
-            <div class="form-container">
-                <h2 class="form-title">Case Submission Form</h2>
-                <form id="caseForm">
-                    <div class="form-row">
-                        <div class="form-control">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" required>
-                        </div>
-                        <div class="form-control">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-control">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" required>
-                        </div>
-                        <div class="form-control">
-                            <label for="location">Location</label>
-                            <input type="text" id="location" required>
-                        </div>
-                    </div>
-                    <div class="form-control">
-                        <label for="caseType">Case Type</label>
-                        <select id="caseType" required>
-                            <option value="">Select Case Type</option>
-                            <option value="IPC 498A">IPC 498A (Domestic Violence)</option>
-                            <option value="False Rape Accusation">False Rape Accusation</option>
-                            <option value="Divorce & Alimony">Divorce & Alimony</option>
-                            <option value="Child Custody">Child Custody</option>
-                            <option value="Workplace Harassment">Workplace Harassment</option>
-                            <option value="Defamation">Defamation</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-control">
-                        <label for="description">Case Description</label>
-                        <textarea id="description" rows="6" required placeholder="Please provide detailed information about your case. Include dates, events, and any relevant background information."></textarea>
-                    </div>
-                    <div class="form-control">
-                        <label>Supporting Documents</label>
-                        <div class="file-upload" id="dropArea">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Drag & drop files here or click to browse</p>
-                            <small>Max file size: 5MB. Accepted formats: PDF, JPG, PNG, DOC, DOCX</small>
-                            <input type="file" id="fileUpload" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" style="display: none;">
-                        </div>
-                        <div id="fileList" class="file-list"></div>
-                    </div>
-                    <div class="form-control">
-                        <label class="checkbox-container">
-                            <input type="checkbox" required>
-                            <span class="checkmark"></span>
-                            I confirm that all information provided is true to the best of my knowledge.
-                        </label>
-                    </div>
-                    <div class="form-control">
-                        <label class="checkbox-container">
-                            <input type="checkbox" required>
-                            <span class="checkmark"></span>
-                            I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy-policy.html">Privacy Policy</a>.
-                        </label>
-                    </div>
-                    <div class="form-footer">
-                        <button type="submit" class="btn-primary">Submit Case</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <section class="info-section">
-        <div class="container">
-            <div class="info-grid">
-                <div class="info-card">
-                    <i class="fas fa-lock"></i>
-                    <h3>Secure & Confidential</h3>
-                    <p>Your information is encrypted and stored securely. We respect your privacy and maintain strict confidentiality.</p>
+            <div class="success-content">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
                 </div>
-                <div class="info-card">
-                    <i class="fas fa-user-shield"></i>
-                    <h3>Anonymous Submission</h3>
-                    <p>You can choose to remain anonymous. Your identity will only be shared with legal professionals with your consent.</p>
+                <h1>Your Case Has Been Submitted Successfully!</h1>
+                <p>Thank you for submitting your case to the WeMen Platform. Our team will review your information and get back to you as soon as possible.</p>
+                
+                <div class="what-next">
+                    <h2>What Happens Next?</h2>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Our team will review your case details within 48 hours</li>
+                        <li><i class="fas fa-check"></i> You will receive an email confirmation with your case reference number</li>
+                        <li><i class="fas fa-check"></i> A team member will contact you to discuss next steps</li>
+                        <li><i class="fas fa-check"></i> You can track your case status in your user dashboard</li>
+                    </ul>
                 </div>
-                <div class="info-card">
-                    <i class="fas fa-clock"></i>
-                    <h3>Quick Response</h3>
-                    <p>Our team reviews cases promptly. You can expect an initial response within 48 hours of submission.</p>
+                
+                <div class="success-actions">
+                    <a href="../index.html" class="btn-secondary"><i class="fas fa-home"></i> Back to Home</a>
+                    <a href="forum.html" class="btn-primary"><i class="fas fa-comments"></i> Join Our Community</a>
                 </div>
             </div>
         </div>
@@ -242,6 +165,5 @@
     <script src="../js/firebase-config.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/main.js"></script>
-    <script src="../js/case-submission.js"></script>
 </body>
 </html> 
