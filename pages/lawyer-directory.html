@@ -19,7 +19,7 @@
         }
         
         .directory-filters {
-            background-color: white;
+            background-color: #1a1a1a;
             padding: 20px;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
@@ -39,16 +39,18 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: var(--text-dark);
+            color: var(--text-color);
         }
         
         .filter-group select,
         .filter-group input {
             width: 100%;
             padding: 10px 15px;
-            border: 1px solid #ddd;
+            border: 1px solid #3a3a3a;
+            background-color: #2b2b2b;
             border-radius: var(--border-radius);
             font-size: 16px;
+            color: var(--text-color);
         }
         
         .filter-group select:focus,
@@ -69,7 +71,7 @@
         }
         
         .lawyer-card {
-            background-color: white;
+            background-color: #1a1a1a;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             overflow: hidden;
@@ -78,13 +80,13 @@
         
         .lawyer-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
         
         .lawyer-header {
             position: relative;
             height: 200px;
-            background-color: #f5f5f5;
+            background-color: #2b2b2b;
             overflow: hidden;
         }
         
@@ -117,7 +119,7 @@
             font-size: 20px;
             font-weight: 600;
             margin: 0 0 5px;
-            color: var(--text-dark);
+            color: var(--text-color);
         }
         
         .lawyer-specialization {
@@ -135,7 +137,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            color: var(--text-medium);
+            color: var(--text-light);
         }
         
         .lawyer-info i {
@@ -158,6 +160,7 @@
         .lawyer-rating span {
             font-weight: 500;
             margin-left: 5px;
+            color: var(--text-light);
         }
         
         .lawyer-tags {
@@ -168,11 +171,11 @@
         }
         
         .lawyer-tag {
-            background-color: #f1f1f1;
+            background-color: #2b2b2b;
             padding: 5px 10px;
             border-radius: 20px;
             font-size: 12px;
-            color: var(--text-medium);
+            color: var(--text-light);
         }
         
         .lawyer-actions {
@@ -187,10 +190,32 @@
         
         .pagination {
             margin-top: 40px;
+            text-align: center;
+        }
+        
+        .pagination button {
+            padding: 8px 15px;
+            margin: 0 5px;
+            background-color: #1a1a1a;
+            color: var(--text-color);
+            border: 1px solid #3a3a3a;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .pagination button.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .pagination button:hover:not(.active) {
+            background-color: #2b2b2b;
         }
     </style>
 </head>
-<body>
+<body class="dark-theme">
     <header>
         <div class="container">
             <div class="logo">
@@ -218,74 +243,69 @@
     </header>
 
     <section class="page-header">
-        <div class="container">
+        <div class="container reveal-fade">
             <h1>Lawyer Directory</h1>
-            <p>Find specialized lawyers and NGOs who can help with your specific case. Our directory includes professionals with experience in handling false accusation cases.</p>
+            <p>Find specialized lawyers who can help with your specific case. Our directory includes professionals with experience in handling various legal matters.</p>
         </div>
     </section>
 
     <section class="directory-section">
         <div class="container">
             <div class="directory-container">
-                <div class="directory-filters">
+                <div class="directory-filters reveal-up">
                     <div class="filter-group">
-                        <label for="locationFilter">Location</label>
-                        <select id="locationFilter">
+                        <label for="specialty">Specialty</label>
+                        <select id="specialty" name="specialty">
+                            <option value="">All Specialties</option>
+                            <option value="domestic-violence">Domestic Violence</option>
+                            <option value="divorce">Divorce & Family Law</option>
+                            <option value="employment">Employment Discrimination</option>
+                            <option value="sexual-harassment">Sexual Harassment</option>
+                            <option value="human-rights">Human Rights</option>
+                            <option value="immigration">Immigration</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="location">Location</label>
+                        <select id="location" name="location">
                             <option value="">All Locations</option>
-                            <option value="Delhi">Delhi</option>
-                            <option value="Mumbai">Mumbai</option>
-                            <option value="Bangalore">Bangalore</option>
-                            <option value="Chennai">Chennai</option>
-                            <option value="Kolkata">Kolkata</option>
-                            <option value="Hyderabad">Hyderabad</option>
-                            <option value="Pune">Pune</option>
-                            <option value="Ahmedabad">Ahmedabad</option>
+                            <option value="new-york">New York</option>
+                            <option value="california">California</option>
+                            <option value="texas">Texas</option>
+                            <option value="florida">Florida</option>
+                            <option value="illinois">Illinois</option>
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label for="specializationFilter">Specialization</label>
-                        <select id="specializationFilter">
-                            <option value="">All Specializations</option>
-                            <option value="IPC 498A">IPC 498A</option>
-                            <option value="False Rape Accusations">False Rape Accusations</option>
-                            <option value="Divorce & Alimony">Divorce & Alimony</option>
-                            <option value="Child Custody">Child Custody</option>
-                            <option value="Workplace Harassment">Workplace Harassment</option>
-                            <option value="Defamation">Defamation</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="experienceFilter">Experience</label>
-                        <select id="experienceFilter">
+                        <label for="experience">Experience</label>
+                        <select id="experience" name="experience">
                             <option value="">Any Experience</option>
-                            <option value="1-5">1-5 Years</option>
-                            <option value="5-10">5-10 Years</option>
-                            <option value="10+">10+ Years</option>
+                            <option value="1-5">1-5 years</option>
+                            <option value="5-10">5-10 years</option>
+                            <option value="10-15">10-15 years</option>
+                            <option value="15+">15+ years</option>
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label for="searchFilter">Search</label>
-                        <input type="text" id="searchFilter" placeholder="Search by name or keyword">
-                    </div>
-                    <div class="filter-button">
-                        <button class="btn-primary" id="applyFilters">Apply Filters</button>
+                        <label for="search">Search</label>
+                        <input type="text" id="search" name="search" placeholder="Search by name or keywords">
                     </div>
                 </div>
                 
-                <div class="lawyers-grid">
+                <div class="lawyers-grid reveal-sequence">
                     <!-- Lawyer Card 1 -->
                     <div class="lawyer-card">
                         <div class="lawyer-header">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Advocate Rajesh Sharma">
+                            <img src="../images/lawyer-1.jpg" alt="Sarah Johnson">
                             <div class="lawyer-verified">
                                 <i class="fas fa-check-circle"></i> Verified
                             </div>
                         </div>
                         <div class="lawyer-content">
-                            <h3 class="lawyer-name">Advocate Rajesh Sharma</h3>
-                            <p class="lawyer-specialization">IPC 498A Specialist</p>
+                            <h3 class="lawyer-name">Sarah Johnson</h3>
+                            <p class="lawyer-specialization">Domestic Violence & Family Law</p>
                             <div class="lawyer-info">
-                                <p><i class="fas fa-map-marker-alt"></i> Delhi High Court</p>
+                                <p><i class="fas fa-map-marker-alt"></i> New York, NY</p>
                                 <p><i class="fas fa-briefcase"></i> 15+ Years Experience</p>
                                 <p><i class="fas fa-gavel"></i> 200+ Cases Won</p>
                             </div>
@@ -298,17 +318,16 @@
                                 <span>4.5 (120 reviews)</span>
                             </div>
                             <div class="lawyer-tags">
-                                <span class="lawyer-tag">IPC 498A</span>
-                                <span class="lawyer-tag">Divorce</span>
-                                <span class="lawyer-tag">Criminal Defense</span>
+                                <span class="lawyer-tag">Domestic Violence</span>
                                 <span class="lawyer-tag">Family Law</span>
+                                <span class="lawyer-tag">Criminal Defense</span>
                             </div>
                             <div class="lawyer-actions">
-                                <a href="tel:+919876543210" class="btn-secondary">
+                                <a href="tel:+1234567890" class="btn btn-secondary">
                                     <i class="fas fa-phone"></i> Call
                                 </a>
-                                <a href="#" class="btn-primary">
-                                    <i class="fas fa-envelope"></i> Contact
+                                <a href="mailto:sjohnson@example.com" class="btn btn-primary">
+                                    <i class="fas fa-envelope"></i> Email
                                 </a>
                             </div>
                         </div>
@@ -317,16 +336,16 @@
                     <!-- Lawyer Card 2 -->
                     <div class="lawyer-card">
                         <div class="lawyer-header">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Advocate Priya Malhotra">
+                            <img src="../images/lawyer-2.jpg" alt="Maria Rodriguez">
                             <div class="lawyer-verified">
                                 <i class="fas fa-check-circle"></i> Verified
                             </div>
                         </div>
                         <div class="lawyer-content">
-                            <h3 class="lawyer-name">Advocate Priya Malhotra</h3>
-                            <p class="lawyer-specialization">False Accusations Expert</p>
+                            <h3 class="lawyer-name">Maria Rodriguez</h3>
+                            <p class="lawyer-specialization">Employment Discrimination & Sexual Harassment</p>
                             <div class="lawyer-info">
-                                <p><i class="fas fa-map-marker-alt"></i> Mumbai</p>
+                                <p><i class="fas fa-map-marker-alt"></i> Los Angeles, CA</p>
                                 <p><i class="fas fa-briefcase"></i> 12 Years Experience</p>
                                 <p><i class="fas fa-gavel"></i> 150+ Cases Won</p>
                             </div>
@@ -339,16 +358,16 @@
                                 <span>5.0 (87 reviews)</span>
                             </div>
                             <div class="lawyer-tags">
-                                <span class="lawyer-tag">False Accusations</span>
-                                <span class="lawyer-tag">Criminal Defense</span>
-                                <span class="lawyer-tag">Evidence Collection</span>
+                                <span class="lawyer-tag">Employment Discrimination</span>
+                                <span class="lawyer-tag">Sexual Harassment</span>
+                                <span class="lawyer-tag">HR Compliance</span>
                             </div>
                             <div class="lawyer-actions">
-                                <a href="tel:+919876543211" class="btn-secondary">
+                                <a href="tel:+1234567891" class="btn btn-secondary">
                                     <i class="fas fa-phone"></i> Call
                                 </a>
-                                <a href="#" class="btn-primary">
-                                    <i class="fas fa-envelope"></i> Contact
+                                <a href="mailto:mrodriguez@example.com" class="btn btn-primary">
+                                    <i class="fas fa-envelope"></i> Email
                                 </a>
                             </div>
                         </div>
@@ -357,18 +376,18 @@
                     <!-- Lawyer Card 3 -->
                     <div class="lawyer-card">
                         <div class="lawyer-header">
-                            <img src="https://randomuser.me/api/portraits/men/62.jpg" alt="Advocate Vikram Singh">
+                            <img src="../images/lawyer-3.jpg" alt="Alexandra Chen">
                             <div class="lawyer-verified">
                                 <i class="fas fa-check-circle"></i> Verified
                             </div>
                         </div>
                         <div class="lawyer-content">
-                            <h3 class="lawyer-name">Advocate Vikram Singh</h3>
-                            <p class="lawyer-specialization">Divorce & Child Custody</p>
+                            <h3 class="lawyer-name">Alexandra Chen</h3>
+                            <p class="lawyer-specialization">Human Rights & Immigration</p>
                             <div class="lawyer-info">
-                                <p><i class="fas fa-map-marker-alt"></i> Bangalore</p>
-                                <p><i class="fas fa-briefcase"></i> 8 Years Experience</p>
-                                <p><i class="fas fa-gavel"></i> 120+ Cases Won</p>
+                                <p><i class="fas fa-map-marker-alt"></i> Chicago, IL</p>
+                                <p><i class="fas fa-briefcase"></i> 10 Years Experience</p>
+                                <p><i class="fas fa-gavel"></i> 90+ Cases Won</p>
                             </div>
                             <div class="lawyer-rating">
                                 <i class="fas fa-star"></i>
@@ -379,17 +398,16 @@
                                 <span>4.0 (65 reviews)</span>
                             </div>
                             <div class="lawyer-tags">
-                                <span class="lawyer-tag">Divorce</span>
-                                <span class="lawyer-tag">Child Custody</span>
-                                <span class="lawyer-tag">Alimony</span>
-                                <span class="lawyer-tag">Family Law</span>
+                                <span class="lawyer-tag">Human Rights</span>
+                                <span class="lawyer-tag">Immigration</span>
+                                <span class="lawyer-tag">Legal Representation</span>
                             </div>
                             <div class="lawyer-actions">
-                                <a href="tel:+919876543212" class="btn-secondary">
+                                <a href="tel:+1234567892" class="btn btn-secondary">
                                     <i class="fas fa-phone"></i> Call
                                 </a>
-                                <a href="#" class="btn-primary">
-                                    <i class="fas fa-envelope"></i> Contact
+                                <a href="mailto:achen@example.com" class="btn btn-primary">
+                                    <i class="fas fa-envelope"></i> Email
                                 </a>
                             </div>
                         </div>
@@ -398,17 +416,17 @@
                     <!-- Lawyer Card 4 -->
                     <div class="lawyer-card">
                         <div class="lawyer-header">
-                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Advocate Anil Kumar">
+                            <img src="../images/lawyer-4.jpg" alt="Michelle Washington">
                             <div class="lawyer-verified">
                                 <i class="fas fa-check-circle"></i> Verified
                             </div>
                         </div>
                         <div class="lawyer-content">
-                            <h3 class="lawyer-name">Advocate Anil Kumar</h3>
-                            <p class="lawyer-specialization">Workplace Harassment</p>
+                            <h3 class="lawyer-name">Michelle Washington</h3>
+                            <p class="lawyer-specialization">Divorce & Child Custody</p>
                             <div class="lawyer-info">
-                                <p><i class="fas fa-map-marker-alt"></i> Chennai</p>
-                                <p><i class="fas fa-briefcase"></i> 10 Years Experience</p>
+                                <p><i class="fas fa-map-marker-alt"></i> Houston, TX</p>
+                                <p><i class="fas fa-briefcase"></i> 10+ Years Experience</p>
                                 <p><i class="fas fa-gavel"></i> 90+ Cases Won</p>
                             </div>
                             <div class="lawyer-rating">
@@ -420,16 +438,16 @@
                                 <span>4.7 (52 reviews)</span>
                             </div>
                             <div class="lawyer-tags">
-                                <span class="lawyer-tag">Workplace Harassment</span>
-                                <span class="lawyer-tag">Employment Law</span>
-                                <span class="lawyer-tag">Defamation</span>
+                                <span class="lawyer-tag">Divorce</span>
+                                <span class="lawyer-tag">Child Custody</span>
+                                <span class="lawyer-tag">Family Law</span>
                             </div>
                             <div class="lawyer-actions">
-                                <a href="tel:+919876543213" class="btn-secondary">
+                                <a href="tel:+1234567893" class="btn btn-secondary">
                                     <i class="fas fa-phone"></i> Call
                                 </a>
-                                <a href="#" class="btn-primary">
-                                    <i class="fas fa-envelope"></i> Contact
+                                <a href="mailto:mwashington@example.com" class="btn btn-primary">
+                                    <i class="fas fa-envelope"></i> Email
                                 </a>
                             </div>
                         </div>
@@ -438,18 +456,58 @@
                     <!-- Lawyer Card 5 -->
                     <div class="lawyer-card">
                         <div class="lawyer-header">
-                            <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Advocate Sunita Verma">
+                            <img src="../images/lawyer-5.jpg" alt="Diana Patel">
                             <div class="lawyer-verified">
                                 <i class="fas fa-check-circle"></i> Verified
                             </div>
                         </div>
                         <div class="lawyer-content">
-                            <h3 class="lawyer-name">Advocate Sunita Verma</h3>
-                            <p class="lawyer-specialization">Defamation Specialist</p>
+                            <h3 class="lawyer-name">Diana Patel</h3>
+                            <p class="lawyer-specialization">Sexual Assault & Victims' Rights</p>
                             <div class="lawyer-info">
-                                <p><i class="fas fa-map-marker-alt"></i> Hyderabad</p>
+                                <p><i class="fas fa-map-marker-alt"></i> Miami, FL</p>
                                 <p><i class="fas fa-briefcase"></i> 9 Years Experience</p>
                                 <p><i class="fas fa-gavel"></i> 75+ Cases Won</p>
+                            </div>
+                            <div class="lawyer-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.9 (48 reviews)</span>
+                            </div>
+                            <div class="lawyer-tags">
+                                <span class="lawyer-tag">Sexual Assault</span>
+                                <span class="lawyer-tag">Victims' Rights</span>
+                                <span class="lawyer-tag">Criminal Defense</span>
+                            </div>
+                            <div class="lawyer-actions">
+                                <a href="tel:+1234567894" class="btn btn-secondary">
+                                    <i class="fas fa-phone"></i> Call
+                                </a>
+                                <a href="mailto:dpatel@example.com" class="btn btn-primary">
+                                    <i class="fas fa-envelope"></i> Email
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Lawyer Card 6 -->
+                    <div class="lawyer-card">
+                        <div class="lawyer-header">
+                            <img src="../images/lawyer-6.jpg" alt="Olivia Kim">
+                            <div class="lawyer-verified">
+                                <i class="fas fa-check-circle"></i> Verified
+                            </div>
+                        </div>
+                        <div class="lawyer-content">
+                            <h3 class="lawyer-name">Olivia Kim</h3>
+                            <p class="lawyer-specialization">Workplace Discrimination & Equal Pay</p>
+                            <div class="lawyer-info">
+                                <p><i class="fas fa-map-marker-alt"></i> San Francisco, CA</p>
+                                <p><i class="fas fa-briefcase"></i> 8 Years Experience</p>
+                                <p><i class="fas fa-gavel"></i> 60+ Cases Won</p>
                             </div>
                             <div class="lawyer-rating">
                                 <i class="fas fa-star"></i>
@@ -460,57 +518,16 @@
                                 <span>4.2 (48 reviews)</span>
                             </div>
                             <div class="lawyer-tags">
-                                <span class="lawyer-tag">Defamation</span>
-                                <span class="lawyer-tag">Media Law</span>
-                                <span class="lawyer-tag">Reputation Management</span>
+                                <span class="lawyer-tag">Workplace Discrimination</span>
+                                <span class="lawyer-tag">Equal Pay</span>
+                                <span class="lawyer-tag">Employment Law</span>
                             </div>
                             <div class="lawyer-actions">
-                                <a href="tel:+919876543214" class="btn-secondary">
+                                <a href="tel:+1234567895" class="btn btn-secondary">
                                     <i class="fas fa-phone"></i> Call
                                 </a>
-                                <a href="#" class="btn-primary">
-                                    <i class="fas fa-envelope"></i> Contact
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Lawyer Card 6 -->
-                    <div class="lawyer-card">
-                        <div class="lawyer-header">
-                            <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Advocate Rahul Mehta">
-                            <div class="lawyer-verified">
-                                <i class="fas fa-check-circle"></i> Verified
-                            </div>
-                        </div>
-                        <div class="lawyer-content">
-                            <h3 class="lawyer-name">Advocate Rahul Mehta</h3>
-                            <p class="lawyer-specialization">IPC 498A & Divorce</p>
-                            <div class="lawyer-info">
-                                <p><i class="fas fa-map-marker-alt"></i> Kolkata</p>
-                                <p><i class="fas fa-briefcase"></i> 14 Years Experience</p>
-                                <p><i class="fas fa-gavel"></i> 180+ Cases Won</p>
-                            </div>
-                            <div class="lawyer-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <span>4.6 (95 reviews)</span>
-                            </div>
-                            <div class="lawyer-tags">
-                                <span class="lawyer-tag">IPC 498A</span>
-                                <span class="lawyer-tag">Divorce</span>
-                                <span class="lawyer-tag">Family Law</span>
-                                <span class="lawyer-tag">Criminal Defense</span>
-                            </div>
-                            <div class="lawyer-actions">
-                                <a href="tel:+919876543215" class="btn-secondary">
-                                    <i class="fas fa-phone"></i> Call
-                                </a>
-                                <a href="#" class="btn-primary">
-                                    <i class="fas fa-envelope"></i> Contact
+                                <a href="mailto:okim@example.com" class="btn btn-primary">
+                                    <i class="fas fa-envelope"></i> Email
                                 </a>
                             </div>
                         </div>
@@ -528,15 +545,10 @@
         </div>
     </section>
 
-    <section class="cta">
-        <div class="container">
-            <h2>Need Personalized Legal Support?</h2>
-            <p>Our platform connects you with specialized lawyers who can help with your specific case.</p>
-            <div class="cta-buttons">
-                <a href="legal-advice.html" class="btn-primary">Get Legal Advice</a>
-            </div>
-        </div>
-    </section>
+    <!-- Floating Action Button -->
+    <div class="floating-btn">
+        <i class="fas fa-filter"></i>
+    </div>
 
     <footer>
         <div class="container">
@@ -637,19 +649,65 @@
     <script src="../js/firebase-config.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/animations.js"></script>
     <script>
-        // Filter functionality
-        document.getElementById('applyFilters').addEventListener('click', () => {
-            // In a real implementation, this would filter the lawyers based on the selected criteria
-            alert('Filters applied! This would filter the lawyers in a real implementation.');
-        });
-        
-        // Contact functionality
-        document.querySelectorAll('.lawyer-actions .btn-primary').forEach(button => {
-            button.addEventListener('click', (e) => {
+        // Modal animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const closeBtns = document.querySelectorAll('.close');
+            const showRegisterLink = document.getElementById('showRegister');
+            const showLoginLink = document.getElementById('showLogin');
+            
+            loginBtn.addEventListener('click', function() {
+                loginModal.style.display = 'block';
+                document.querySelector('#loginModal .modal-content').classList.add('active');
+            });
+            
+            registerBtn.addEventListener('click', function() {
+                registerModal.style.display = 'block';
+                document.querySelector('#registerModal .modal-content').classList.add('active');
+            });
+            
+            closeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                    this.closest('.modal-content').classList.remove('active');
+                });
+            });
+            
+            showRegisterLink.addEventListener('click', function(e) {
                 e.preventDefault();
-                const lawyerName = e.target.closest('.lawyer-card').querySelector('.lawyer-name').textContent;
-                alert(`Contact form for ${lawyerName} would open in a real implementation.`);
+                loginModal.style.display = 'none';
+                document.querySelector('#loginModal .modal-content').classList.remove('active');
+                setTimeout(() => {
+                    registerModal.style.display = 'block';
+                    document.querySelector('#registerModal .modal-content').classList.add('active');
+                }, 300);
+            });
+            
+            showLoginLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                registerModal.style.display = 'none';
+                document.querySelector('#registerModal .modal-content').classList.remove('active');
+                setTimeout(() => {
+                    loginModal.style.display = 'block';
+                    document.querySelector('#loginModal .modal-content').classList.add('active');
+                }, 300);
+            });
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === loginModal) {
+                    loginModal.style.display = 'none';
+                    document.querySelector('#loginModal .modal-content').classList.remove('active');
+                }
+                if (e.target === registerModal) {
+                    registerModal.style.display = 'none';
+                    document.querySelector('#registerModal .modal-content').classList.remove('active');
+                }
             });
         });
     </script>

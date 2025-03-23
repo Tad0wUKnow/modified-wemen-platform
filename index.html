@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WeMen - Support for Men Facing False Accusations</title>
+    <title>WeMen - Supporting Men Against False Accusations | Community & Legal Support</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Animation libraries -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
@@ -21,7 +23,7 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="#" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#home" class="active"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="pages/forum.html"><i class="fas fa-comments"></i> Community</a></li>
                     <li><a href="pages/legal-advice.html"><i class="fas fa-gavel"></i> Legal Advisory</a></li>
                     <li><a href="pages/resources.html"><i class="fas fa-book"></i> Resources</a></li>
@@ -39,9 +41,9 @@
         </div>
     </header>
 
-    <section class="hero">
+    <section class="hero" id="home">
         <div class="container">
-            <div class="hero-content">
+            <div class="hero-content" data-aos="fade-up">
                 <h2>You Are Not Alone</h2>
                 <p>WeMen provides support, resources, and community for men facing false accusations.</p>
                 <div class="hero-buttons">
@@ -52,26 +54,26 @@
         </div>
     </section>
 
-    <section class="features">
+    <section class="features" id="features">
         <div class="container">
-            <h2 class="section-title">How We Can Help</h2>
+            <h2 class="section-title" data-aos="fade-down">How We Can Help</h2>
             <div class="feature-grid">
-                <div class="feature-card">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
                     <i class="fas fa-file-alt"></i>
                     <h3>Case Submission</h3>
                     <p>Submit your case details anonymously and securely for guidance and support.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
                     <i class="fas fa-comments"></i>
                     <h3>Community Support</h3>
                     <p>Connect with others who have faced similar situations and share experiences.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
                     <i class="fas fa-robot"></i>
                     <h3>Legal Advisory</h3>
                     <p>Get preliminary legal guidance through our advisory chatbot.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
                     <i class="fas fa-gavel"></i>
                     <h3>Lawyer Directory</h3>
                     <p>Find specialized lawyers and NGOs who can help with your specific case.</p>
@@ -80,10 +82,10 @@
         </div>
     </section>
 
-    <section class="testimonials">
+    <section class="testimonials" id="testimonials">
         <div class="container">
-            <h2 class="section-title">Success Stories</h2>
-            <div class="testimonial-slider">
+            <h2 class="section-title" data-aos="fade-down">Success Stories</h2>
+            <div class="testimonial-slider" data-aos="fade">
                 <div class="testimonial">
                     <p>"The support I received from this community helped me navigate through the most difficult time of my life. The legal resources were invaluable."</p>
                     <div class="testimonial-author">
@@ -109,22 +111,22 @@
         </div>
     </section>
 
-    <section class="stats">
+    <section class="stats" id="stats">
         <div class="container">
             <div class="stat-grid">
-                <div class="stat-card">
+                <div class="stat-card" data-aos="zoom-in" data-aos-delay="100">
                     <h3>500+</h3>
                     <p>Cases Supported</p>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card" data-aos="zoom-in" data-aos-delay="200">
                     <h3>200+</h3>
                     <p>Specialized Lawyers</p>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card" data-aos="zoom-in" data-aos-delay="300">
                     <h3>5000+</h3>
                     <p>Community Members</p>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card" data-aos="zoom-in" data-aos-delay="400">
                     <h3>100+</h3>
                     <p>Success Stories</p>
                 </div>
@@ -132,11 +134,11 @@
         </div>
     </section>
 
-    <section class="cta">
+    <section class="cta" id="join">
         <div class="container">
-            <h2>Ready to Take the First Step?</h2>
-            <p>Join our community today and get the support you need.</p>
-            <div class="cta-buttons">
+            <h2 data-aos="fade-up">Ready to Take the First Step?</h2>
+            <p data-aos="fade-up" data-aos-delay="100">Join our community today and get the support you need.</p>
+            <div class="cta-buttons" data-aos="fade-up" data-aos-delay="200">
                 <a href="pages/submit-case.html" class="btn-primary">Submit Your Case</a>
                 <a href="pages/forum.html" class="btn-community"><i class="fas fa-users"></i> Join Community</a>
             </div>
@@ -146,11 +148,11 @@
     <footer>
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-col">
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="100">
                     <h3>WeMen</h3>
                     <p>Support for men facing false accusations. We're here to help you navigate through difficult times.</p>
                 </div>
-                <div class="footer-col">
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a href="index.html">Home</a></li>
@@ -160,7 +162,7 @@
                         <li><a href="pages/lawyer-directory.html">Lawyer Directory</a></li>
                     </ul>
                 </div>
-                <div class="footer-col">
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
                     <h3>Contact Us</h3>
                     <p>Email: support@wemen.org</p>
                     <p>Helpline: +91 1234567890</p>
@@ -245,8 +247,28 @@
     </div>
 
     <script src="js/firebase-config.js"></script>
+    <script src="js/preloader.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/effects.js"></script>
+    <script src="js/tilt.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Initialize modal content animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalContents = document.querySelectorAll('.modal-content');
+            modalContents.forEach(content => {
+                content.classList.add('reveal-scale');
+            });
+        });
+    </script>
     <!-- Hey this is just for testing by Anish...-->
 </body>
 </html> 

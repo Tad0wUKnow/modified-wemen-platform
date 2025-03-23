@@ -16,7 +16,7 @@
         .chat-container {
             max-width: 800px;
             margin: 40px auto;
-            background-color: white;
+            background-color: #1a1a1a;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             overflow: hidden;
@@ -47,6 +47,8 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+            background-color: #1a1a1a;
+            color: var(--text-color);
         }
         
         .message {
@@ -66,7 +68,7 @@
         .message-content {
             padding: 12px 15px;
             border-radius: 18px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
         
         .message.user .message-content {
@@ -76,7 +78,8 @@
         }
         
         .message.bot .message-content {
-            background-color: #f1f1f1;
+            background-color: #2b2b2b;
+            color: var(--text-color);
             border-bottom-left-radius: 5px;
         }
         
@@ -90,15 +93,27 @@
         .chat-input {
             display: flex;
             padding: 15px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid #333;
+            background-color: #1a1a1a;
         }
         
         .chat-input input {
             flex: 1;
             padding: 12px 15px;
-            border: 1px solid #ddd;
+            border: 1px solid #3a3a3a;
             border-radius: 30px;
             font-size: 16px;
+            background-color: #2b2b2b;
+            color: var(--text-color);
+        }
+        
+        .chat-input input::placeholder {
+            color: #777;
+        }
+        
+        .chat-input input:focus {
+            outline: none;
+            border-color: var(--primary-color);
         }
         
         .chat-input button {
@@ -128,14 +143,14 @@
             max-width: 800px;
             margin: 20px auto 40px;
             padding: 15px 20px;
-            background-color: #fff8e1;
+            background-color: #2b2b2b;
             border-left: 4px solid #ffc107;
             border-radius: var(--border-radius);
         }
         
         .chat-disclaimer h3 {
             margin-top: 0;
-            color: #ff8f00;
+            color: #ffc107;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -143,7 +158,7 @@
         
         .chat-disclaimer p {
             margin-bottom: 0;
-            color: #5d4037;
+            color: var(--text-color);
         }
         
         .legal-topics {
@@ -163,19 +178,22 @@
         }
         
         .topic-button {
-            background-color: white;
-            border: 1px solid #ddd;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
             border-radius: var(--border-radius);
             padding: 15px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
+            color: var(--text-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .topic-button:hover {
             border-color: var(--primary-color);
             transform: translateY(-3px);
-            box-shadow: var(--box-shadow);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background-color: #2b2b2b;
         }
         
         .topic-button i {
@@ -187,6 +205,66 @@
         .topic-button h3 {
             margin: 0;
             font-size: 16px;
+            color: var(--text-color);
+        }
+        
+        /* Dark Theme Modal Styles */
+        .modal-content {
+            background-color: #1a1a1a;
+            color: var(--text-color);
+            border: 1px solid #333;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal h2 {
+            color: var(--text-color);
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+        
+        .form-group label {
+            color: var(--text-color);
+        }
+        
+        .form-group input {
+            background-color: #2b2b2b;
+            border: 1px solid #333;
+            color: var(--text-color);
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            width: 100%;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+            outline: none;
+        }
+        
+        .social-login p {
+            color: var(--text-light);
+        }
+        
+        .form-footer {
+            color: var(--text-light);
+        }
+        
+        .form-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .close {
+            color: #777;
+        }
+        
+        .close:hover {
+            color: var(--text-color);
         }
     </style>
 </head>
@@ -218,7 +296,7 @@
     </header>
 
     <section class="page-header">
-        <div class="container">
+        <div class="container reveal-fade">
             <h1>Legal Advisory Chatbot</h1>
             <p>Get preliminary legal guidance through our advisory chatbot. Ask questions about legal procedures, rights, and next steps.</p>
         </div>
@@ -226,38 +304,38 @@
 
     <section class="legal-topics">
         <div class="container">
-            <h2>Common Legal Topics</h2>
-            <p class="text-center">Click on any topic to get instant guidance from our chatbot</p>
-            <div class="topics-grid">
-                <div class="topic-button" data-topic="ipc 498a">
+            <h2 class="reveal-fade">Common Legal Topics</h2>
+            <p class="text-center reveal-fade">Click on any topic to get instant guidance from our chatbot</p>
+            <div class="topics-grid reveal-sequence">
+                <div class="topic-button reveal-item" data-topic="ipc 498a">
                     <i class="fas fa-gavel"></i>
                     <h3>IPC 498A</h3>
                 </div>
-                <div class="topic-button" data-topic="divorce">
+                <div class="topic-button reveal-item" data-topic="divorce">
                     <i class="fas fa-file-contract"></i>
                     <h3>Divorce Cases</h3>
                 </div>
-                <div class="topic-button" data-topic="custody">
+                <div class="topic-button reveal-item" data-topic="custody">
                     <i class="fas fa-child"></i>
                     <h3>Child Custody</h3>
                 </div>
-                <div class="topic-button" data-topic="harassment">
+                <div class="topic-button reveal-item" data-topic="harassment">
                     <i class="fas fa-exclamation-triangle"></i>
                     <h3>Harassment</h3>
                 </div>
-                <div class="topic-button" data-topic="defamation">
+                <div class="topic-button reveal-item" data-topic="defamation">
                     <i class="fas fa-comment-slash"></i>
                     <h3>Defamation</h3>
                 </div>
-                <div class="topic-button" data-topic="evidence">
+                <div class="topic-button reveal-item" data-topic="evidence">
                     <i class="fas fa-search"></i>
                     <h3>Evidence Collection</h3>
                 </div>
-                <div class="topic-button" data-topic="bail">
+                <div class="topic-button reveal-item" data-topic="bail">
                     <i class="fas fa-unlock"></i>
                     <h3>Bail Procedures</h3>
                 </div>
-                <div class="topic-button" data-topic="rights">
+                <div class="topic-button reveal-item" data-topic="rights">
                     <i class="fas fa-balance-scale"></i>
                     <h3>Legal Rights</h3>
                 </div>
@@ -265,7 +343,7 @@
         </div>
     </section>
 
-    <div class="chat-container">
+    <div class="chat-container reveal-up">
         <div class="chat-header">
             <i class="fas fa-robot"></i>
             <h2>Legal Advisory Chatbot</h2>
@@ -281,13 +359,13 @@
         </form>
     </div>
 
-    <div class="chat-disclaimer">
+    <div class="chat-disclaimer reveal-fade">
         <h3><i class="fas fa-exclamation-circle"></i> Disclaimer</h3>
         <p>This chatbot provides general legal information and is not a substitute for professional legal advice. The information provided is based on common scenarios and may not apply to your specific situation. Always consult with a qualified lawyer for personalized legal advice.</p>
     </div>
 
     <section class="cta">
-        <div class="container">
+        <div class="container reveal-fade">
             <h2>Need Personalized Legal Advice?</h2>
             <p>Our chatbot provides general guidance, but for personalized legal advice, connect with a specialized lawyer.</p>
             <div class="cta-buttons">
@@ -334,7 +412,7 @@
 
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content reveal-scale">
             <span class="close">&times;</span>
             <h2>Login</h2>
             <form id="loginForm">
@@ -360,7 +438,7 @@
 
     <!-- Register Modal -->
     <div id="registerModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content reveal-scale">
             <span class="close">&times;</span>
             <h2>Register</h2>
             <form id="registerForm">
@@ -395,6 +473,7 @@
     <script src="../js/firebase-config.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/animations.js"></script>
     <script>
         // Topic buttons functionality
         document.querySelectorAll('.topic-button').forEach(button => {
@@ -403,6 +482,66 @@
                 document.getElementById('messageInput').value = `Tell me about ${topic}`;
                 // Trigger sendMessage directly instead of form submission event
                 sendMessage();
+            });
+        });
+
+        // Modal animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const closeBtns = document.querySelectorAll('.close');
+            const showRegisterLink = document.getElementById('showRegister');
+            const showLoginLink = document.getElementById('showLogin');
+            
+            loginBtn.addEventListener('click', function() {
+                loginModal.style.display = 'block';
+                document.querySelector('#loginModal .modal-content').classList.add('active');
+            });
+            
+            registerBtn.addEventListener('click', function() {
+                registerModal.style.display = 'block';
+                document.querySelector('#registerModal .modal-content').classList.add('active');
+            });
+            
+            closeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                    this.closest('.modal-content').classList.remove('active');
+                });
+            });
+            
+            showRegisterLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.style.display = 'none';
+                document.querySelector('#loginModal .modal-content').classList.remove('active');
+                setTimeout(() => {
+                    registerModal.style.display = 'block';
+                    document.querySelector('#registerModal .modal-content').classList.add('active');
+                }, 300);
+            });
+            
+            showLoginLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                registerModal.style.display = 'none';
+                document.querySelector('#registerModal .modal-content').classList.remove('active');
+                setTimeout(() => {
+                    loginModal.style.display = 'block';
+                    document.querySelector('#loginModal .modal-content').classList.add('active');
+                }, 300);
+            });
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === loginModal) {
+                    loginModal.style.display = 'none';
+                    document.querySelector('#loginModal .modal-content').classList.remove('active');
+                }
+                if (e.target === registerModal) {
+                    registerModal.style.display = 'none';
+                    document.querySelector('#registerModal .modal-content').classList.remove('active');
+                }
             });
         });
 
@@ -437,7 +576,7 @@
                 const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                     method: "POST",
                     headers: {
-                        "Authorization": "Bearer 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",
+                        "Authorization": "Bearer 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",
                         "Content-Type": "application/json",
                         "HTTP-Referer": window.location.href,  // Add referer header
                         "X-Title": "LexiBot Legal Assistant"   // Add title header

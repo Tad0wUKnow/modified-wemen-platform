@@ -17,37 +17,67 @@ const closeBtns = document.querySelectorAll('.close');
 // Show/Hide Modals
 loginBtn?.addEventListener('click', () => {
     loginModal.style.display = 'block';
+    setTimeout(() => {
+        document.querySelector('#loginModal .modal-content')?.classList.add('active');
+    }, 10);
 });
 
 registerBtn?.addEventListener('click', () => {
     registerModal.style.display = 'block';
+    setTimeout(() => {
+        document.querySelector('#registerModal .modal-content')?.classList.add('active');
+    }, 10);
 });
 
 showRegister?.addEventListener('click', (e) => {
     e.preventDefault();
-    loginModal.style.display = 'none';
-    registerModal.style.display = 'block';
+    document.querySelector('#loginModal .modal-content')?.classList.remove('active');
+    setTimeout(() => {
+        loginModal.style.display = 'none';
+        registerModal.style.display = 'block';
+        setTimeout(() => {
+            document.querySelector('#registerModal .modal-content')?.classList.add('active');
+        }, 10);
+    }, 300);
 });
 
 showLogin?.addEventListener('click', (e) => {
     e.preventDefault();
-    registerModal.style.display = 'none';
-    loginModal.style.display = 'block';
+    document.querySelector('#registerModal .modal-content')?.classList.remove('active');
+    setTimeout(() => {
+        registerModal.style.display = 'none';
+        loginModal.style.display = 'block';
+        setTimeout(() => {
+            document.querySelector('#loginModal .modal-content')?.classList.add('active');
+        }, 10);
+    }, 300);
 });
 
 closeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-        loginModal.style.display = 'none';
-        registerModal.style.display = 'none';
+        const modal = btn.closest('.modal');
+        const modalContent = btn.closest('.modal-content');
+        if (modalContent) {
+            modalContent.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
     });
 });
 
 window.addEventListener('click', (e) => {
     if (e.target === loginModal) {
-        loginModal.style.display = 'none';
+        document.querySelector('#loginModal .modal-content')?.classList.remove('active');
+        setTimeout(() => {
+            loginModal.style.display = 'none';
+        }, 300);
     }
     if (e.target === registerModal) {
-        registerModal.style.display = 'none';
+        document.querySelector('#registerModal .modal-content')?.classList.remove('active');
+        setTimeout(() => {
+            registerModal.style.display = 'none';
+        }, 300);
     }
 });
 

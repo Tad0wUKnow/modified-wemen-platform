@@ -12,136 +12,142 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
 </head>
-<body>
-    <header>
-        <div class="container">
-            <div class="logo">
-                <h1>WeMen</h1>
-                <p class="tagline">Support for Men Facing False Accusations</p>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="forum.html"><i class="fas fa-comments"></i> Community</a></li>
-                    <li><a href="legal-advice.html"><i class="fas fa-gavel"></i> Legal Advisory</a></li>
-                    <li><a href="resources.html"><i class="fas fa-book"></i> Resources</a></li>
-                    <li><a href="lawyer-directory.html"><i class="fas fa-user-tie"></i> Lawyers</a></li>
-                    <li><a href="submit-case.html" class="active"><i class="fas fa-file-alt"></i> Submit Your Case</a></li>
-                </ul>
-            </nav>
-            <div class="auth-buttons">
-                <button id="loginBtn" class="btn-secondary"><i class="fas fa-sign-in-alt"></i> Login</button>
-                <button id="registerBtn" class="btn-primary"><i class="fas fa-user-plus"></i> Register</button>
-                <div id="userProfile" class="user-profile hidden">
-                    <span id="userName">User</span>
-                    <button id="logoutBtn" class="btn-secondary"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                </div>
-            </div>
+<body class="dark-theme">
+    <header class="page-header">
+        <div class="container reveal-fade">
+            <h1>Submit Your Case</h1>
+            <p>Get legal assistance with your situation by submitting your case details</p>
         </div>
     </header>
 
-    <section class="page-header">
-        <div class="container">
-            <h1>Submit Your Case</h1>
-            <p>Share your case details with us securely and anonymously. Our team will review your case and provide guidance.</p>
-        </div>
-    </section>
-
-    <section class="form-section">
-        <div class="container">
-            <div class="form-container">
-                <h2 class="form-title">Case Submission Form</h2>
-                <form id="caseForm">
+    <main>
+        <section class="form-section">
+            <div class="form-container reveal-up">
+                <h2 class="form-title">Case Information Form</h2>
+                <form id="caseSubmissionForm">
                     <div class="form-row">
                         <div class="form-control">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" required>
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" required>
                         </div>
                         <div class="form-control">
                             <label for="email">Email Address</label>
-                            <input type="email" id="email" required>
+                            <input type="email" id="email" name="email" required>
                         </div>
                     </div>
+
                     <div class="form-row">
                         <div class="form-control">
                             <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" required>
+                            <input type="tel" id="phone" name="phone" required>
                         </div>
                         <div class="form-control">
-                            <label for="location">Location</label>
-                            <input type="text" id="location" required>
+                            <label for="location">Your Location</label>
+                            <input type="text" id="location" name="location" required>
                         </div>
                     </div>
+
                     <div class="form-control">
-                        <label for="caseType">Case Type</label>
-                        <select id="caseType" required>
+                        <label for="caseType">Type of Case</label>
+                        <select id="caseType" name="caseType" required>
                             <option value="">Select Case Type</option>
-                            <option value="IPC 498A">IPC 498A (Domestic Violence)</option>
-                            <option value="False Rape Accusation">False Rape Accusation</option>
-                            <option value="Divorce & Alimony">Divorce & Alimony</option>
-                            <option value="Child Custody">Child Custody</option>
-                            <option value="Workplace Harassment">Workplace Harassment</option>
-                            <option value="Defamation">Defamation</option>
-                            <option value="Other">Other</option>
+                            <option value="domestic-violence">Domestic Violence</option>
+                            <option value="sexual-harassment">Sexual Harassment</option>
+                            <option value="discrimination">Workplace Discrimination</option>
+                            <option value="divorce">Divorce & Family Law</option>
+                            <option value="immigration">Immigration</option>
+                            <option value="housing">Housing Rights</option>
+                            <option value="other">Other</option>
                         </select>
                     </div>
+
                     <div class="form-control">
-                        <label for="description">Case Description</label>
-                        <textarea id="description" rows="6" required placeholder="Please provide detailed information about your case. Include dates, events, and any relevant background information."></textarea>
+                        <label for="incidentDate">Date of Incident (if applicable)</label>
+                        <input type="date" id="incidentDate" name="incidentDate">
                     </div>
+
                     <div class="form-control">
-                        <label>Supporting Documents</label>
-                        <div class="file-upload" id="dropArea">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Drag & drop files here or click to browse</p>
-                            <small>Max file size: 5MB. Accepted formats: PDF, JPG, PNG, DOC, DOCX</small>
-                            <input type="file" id="fileUpload" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" style="display: none;">
+                        <label for="caseDescription">Case Description</label>
+                        <textarea id="caseDescription" name="caseDescription" rows="6" required placeholder="Please provide as much detail as possible about your situation"></textarea>
+                    </div>
+
+                    <div class="form-control">
+                        <label>Have you sought legal assistance before?</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="priorLegal" value="yes"> Yes
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="priorLegal" value="no"> No
+                            </label>
                         </div>
-                        <div id="fileList" class="file-list"></div>
                     </div>
+
+                    <div class="form-control" id="priorLegalDetails" style="display: none;">
+                        <label for="priorLegalInfo">Please provide details about prior legal assistance</label>
+                        <textarea id="priorLegalInfo" name="priorLegalInfo" rows="4"></textarea>
+                    </div>
+
+                    <div class="file-upload">
+                        <i class="fas fa-file-upload"></i>
+                        <p>Upload Supporting Documents</p>
+                        <small>Drag & drop files here or click to browse</small>
+                        <input type="file" id="documents" name="documents" multiple style="display: none;">
+                    </div>
+
                     <div class="form-control">
-                        <label class="checkbox-container">
-                            <input type="checkbox" required>
-                            <span class="checkmark"></span>
-                            I confirm that all information provided is true to the best of my knowledge.
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="confidentiality" required>
+                            I understand that all information provided will be kept confidential and will only be used for legal consultation purposes.
                         </label>
                     </div>
+
                     <div class="form-control">
-                        <label class="checkbox-container">
-                            <input type="checkbox" required>
-                            <span class="checkmark"></span>
-                            I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy-policy.html">Privacy Policy</a>.
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="termsAgree" required>
+                            I agree to the <a href="#" class="text-hover-effect">Terms of Service</a> and <a href="#" class="text-hover-effect">Privacy Policy</a>
                         </label>
                     </div>
-                    <div class="form-footer">
-                        <button type="submit" class="btn-primary">Submit Case</button>
+
+                    <div class="action-buttons">
+                        <button type="reset" class="btn btn-secondary">Clear Form</button>
+                        <button type="submit" class="btn btn-primary submit-btn">
+                            <span class="default-text">Submit Case</span>
+                            <span class="success-text"><i class="fas fa-check"></i> Case Submitted!</span>
+                        </button>
                     </div>
                 </form>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="info-section">
-        <div class="container">
-            <div class="info-grid">
-                <div class="info-card">
-                    <i class="fas fa-lock"></i>
-                    <h3>Secure & Confidential</h3>
-                    <p>Your information is encrypted and stored securely. We respect your privacy and maintain strict confidentiality.</p>
+        <section class="section reveal-fade">
+            <div class="container">
+                <div class="info-card reveal-scale">
+                    <div class="info-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="info-content">
+                        <h3>Your Privacy Matters</h3>
+                        <p>All information shared with us is protected by attorney-client privilege and will be kept strictly confidential. We use secure, encrypted communications to protect your data.</p>
+                    </div>
                 </div>
-                <div class="info-card">
-                    <i class="fas fa-user-shield"></i>
-                    <h3>Anonymous Submission</h3>
-                    <p>You can choose to remain anonymous. Your identity will only be shared with legal professionals with your consent.</p>
+                
+                <div class="info-card reveal-scale">
+                    <div class="info-icon"><i class="fas fa-clock"></i></div>
+                    <div class="info-content">
+                        <h3>What to Expect</h3>
+                        <p>After submitting your case, you'll receive a confirmation email. One of our legal advisors will review your case and contact you within 24-48 hours to discuss next steps.</p>
+                    </div>
                 </div>
-                <div class="info-card">
-                    <i class="fas fa-clock"></i>
-                    <h3>Quick Response</h3>
-                    <p>Our team reviews cases promptly. You can expect an initial response within 48 hours of submission.</p>
+                
+                <div class="info-card reveal-scale">
+                    <div class="info-icon"><i class="fas fa-question-circle"></i></div>
+                    <div class="info-content">
+                        <h3>Need Help?</h3>
+                        <p>If you need immediate assistance or have questions about submitting your case, please call our helpline at <a href="tel:+1800WOMENLEGAL" class="text-hover-effect">1-800-WOMEN-LEGAL</a> or email us at <a href="mailto:help@womenslaw.org" class="text-hover-effect">help@womenslaw.org</a>.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer>
         <div class="container">
@@ -181,7 +187,7 @@
 
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content reveal-scale">
             <span class="close">&times;</span>
             <h2>Login</h2>
             <form id="loginForm">
@@ -207,7 +213,7 @@
 
     <!-- Register Modal -->
     <div id="registerModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content reveal-scale">
             <span class="close">&times;</span>
             <h2>Register</h2>
             <form id="registerForm">
@@ -243,5 +249,74 @@
     <script src="../js/auth.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/case-submission.js"></script>
+    <script>
+        // Show/hide prior legal assistance details
+        document.querySelectorAll('input[name="priorLegal"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const detailsDiv = document.getElementById('priorLegalDetails');
+                if (this.value === 'yes') {
+                    detailsDiv.style.display = 'block';
+                } else {
+                    detailsDiv.style.display = 'none';
+                }
+            });
+        });
+
+        // File upload interaction
+        const fileUploadArea = document.querySelector('.file-upload');
+        const fileInput = document.getElementById('documents');
+
+        fileUploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                let fileNames = Array.from(fileInput.files).map(file => file.name).join(', ');
+                if (fileNames.length > 50) {
+                    fileNames = fileNames.substring(0, 47) + '...';
+                }
+                const fileUploadText = fileUploadArea.querySelector('p');
+                fileUploadText.textContent = `Selected: ${fileInput.files.length} file(s)`;
+                const fileUploadSmall = fileUploadArea.querySelector('small');
+                fileUploadSmall.textContent = fileNames;
+            }
+        });
+
+        // Form submission with animation
+        document.getElementById('caseSubmissionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            
+            // Add processing state
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                submitBtn.classList.add('success');
+                
+                // Reset form after showing success
+                setTimeout(() => {
+                    window.location.href = 'case-submitted.html';
+                }, 2000);
+            }, 1500);
+        });
+
+        // Add animation classes to modal content elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation classes to modal elements
+            const loginModalContent = document.querySelector('#loginModal .modal-content');
+            const registerModalContent = document.querySelector('#registerModal .modal-content');
+            
+            if (loginModalContent) loginModalContent.classList.add('reveal-scale');
+            if (registerModalContent) registerModalContent.classList.add('reveal-scale');
+        });
+    </script>
+    
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/animations.js"></script>
 </body>
 </html> 

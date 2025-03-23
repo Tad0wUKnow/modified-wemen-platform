@@ -26,6 +26,7 @@
             margin-bottom: 30px;
             position: relative;
             padding-bottom: 15px;
+            color: var(--text-color);
         }
         
         .resource-section h2::after {
@@ -45,7 +46,7 @@
         }
         
         .resource-card {
-            background-color: white;
+            background-color: #1a1a1a;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             overflow: hidden;
@@ -54,12 +55,13 @@
         
         .resource-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
         
         .resource-card-image {
             height: 200px;
             overflow: hidden;
+            background-color: #2b2b2b;
         }
         
         .resource-card-image img {
@@ -79,7 +81,7 @@
         
         .resource-card-content h3 {
             margin-bottom: 10px;
-            color: var(--dark-color);
+            color: var(--text-color);
         }
         
         .resource-card-content p {
@@ -92,8 +94,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 20px;
-            background-color: #f9f9f9;
-            border-top: 1px solid #eee;
+            background-color: #2b2b2b;
+            border-top: 1px solid #333;
         }
         
         .resource-card-footer .date {
@@ -107,7 +109,7 @@
         }
         
         .legal-rights {
-            background-color: #f5f5f5;
+            background-color: #121212;
             padding: 40px 0;
         }
         
@@ -118,10 +120,16 @@
         }
         
         .right-item {
-            background-color: white;
+            background-color: #1a1a1a;
             border-radius: var(--border-radius);
             padding: 20px;
             box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .right-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
         
         .right-item h3 {
@@ -148,43 +156,49 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-        }
-        
-        .helpline-table th,
-        .helpline-table td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius);
+            overflow: hidden;
         }
         
         .helpline-table th {
-            background-color: #f5f5f5;
+            background-color: #1a1a1a;
+            color: var(--text-color);
+            padding: 15px;
+            text-align: left;
             font-weight: 600;
-            color: var(--dark-color);
+            border-bottom: 1px solid #333;
         }
         
-        .helpline-table tr:hover {
-            background-color: #f9f9f9;
+        .helpline-table td {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            color: var(--text-color);
+            background-color: #2b2b2b;
         }
         
-        .helpline-table td:last-child {
-            text-align: center;
+        .helpline-table tr:hover td {
+            background-color: #333;
         }
         
-        .helpline-table .btn-call {
-            background-color: var(--success-color);
+        .helpline-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .btn-call {
+            background-color: var(--primary-color);
             color: white;
             padding: 8px 15px;
             border-radius: 30px;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            font-size: 14px;
+            gap: 8px;
             transition: var(--transition);
         }
         
-        .helpline-table .btn-call:hover {
-            background-color: #3d8b40;
+        .btn-call:hover {
+            background-color: #303f9f;
+            transform: translateY(-2px);
         }
         
         .downloads {
@@ -198,7 +212,7 @@
         }
         
         .download-item {
-            background-color: white;
+            background-color: #1a1a1a;
             border-radius: var(--border-radius);
             padding: 20px;
             box-shadow: var(--box-shadow);
@@ -206,6 +220,12 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            transition: var(--transition);
+        }
+        
+        .download-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
         
         .download-item i {
@@ -216,7 +236,7 @@
         
         .download-item h3 {
             margin-bottom: 10px;
-            color: var(--dark-color);
+            color: var(--text-color);
         }
         
         .download-item p {
@@ -269,9 +289,9 @@
     </header>
 
     <section class="page-header">
-        <div class="container">
-            <h1>Resources & Information</h1>
-            <p>Access valuable resources, case studies, legal information, and helpline numbers to help you navigate through false accusations.</p>
+        <div class="container reveal-fade">
+            <h1>Resources</h1>
+            <p>Access guides, documents, and educational content to help you navigate your legal journey.</p>
         </div>
     </section>
 
@@ -327,8 +347,8 @@
         
         <section class="legal-rights">
             <div class="container">
-                <h2>Know Your Legal Rights</h2>
-                <div class="rights-list">
+                <h2 class="reveal-fade">Know Your Legal Rights</h2>
+                <div class="rights-list reveal-sequence">
                     <div class="right-item">
                         <h3><i class="fas fa-gavel"></i> Right to Remain Silent</h3>
                         <p>You have the right to remain silent during police questioning. Anything you say can be used against you in court. It's advisable to speak only in the presence of your lawyer.</p>
@@ -364,10 +384,10 @@
         
         <section class="helplines">
             <div class="container">
-                <h2>Helpline Numbers</h2>
-                <p>These helplines provide support, guidance, and assistance to men facing false accusations. Don't hesitate to reach out for help.</p>
+                <h2 class="reveal-fade">Helpline Numbers</h2>
+                <p class="reveal-fade">These helplines provide support, guidance, and assistance to men facing false accusations. Don't hesitate to reach out for help.</p>
                 
-                <table class="helpline-table">
+                <table class="helpline-table reveal-up">
                     <thead>
                         <tr>
                             <th>Organization</th>
@@ -420,10 +440,10 @@
         
         <section class="downloads">
             <div class="container">
-                <h2>Downloadable Resources</h2>
-                <p>Access these valuable resources to help you understand your rights and navigate through legal procedures.</p>
+                <h2 class="reveal-fade">Downloadable Resources</h2>
+                <p class="reveal-fade">Access these valuable resources to help you understand your rights and navigate through legal procedures.</p>
                 
-                <div class="download-list">
+                <div class="download-list reveal-sequence">
                     <div class="download-item">
                         <i class="fas fa-file-pdf"></i>
                         <h3>Legal Rights Handbook</h3>
@@ -457,11 +477,12 @@
     </div>
 
     <section class="cta">
-        <div class="container">
-            <h2>Need Personalized Support?</h2>
-            <p>Our team is ready to help you navigate through your specific situation.</p>
+        <div class="container reveal-fade">
+            <h2>Need Personalized Assistance?</h2>
+            <p>Our legal advisors can provide customized guidance for your specific situation.</p>
             <div class="cta-buttons">
-                <a href="lawyer-directory.html" class="btn-primary">Find a Lawyer</a>
+                <a href="legal-advice.html" class="btn-primary">Get Legal Advice</a>
+                <a href="submit-case.html" class="btn-secondary">Submit Your Case</a>
             </div>
         </div>
     </section>
@@ -565,5 +586,67 @@
     <script src="../js/firebase-config.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/animations.js"></script>
+    <script>
+        // Modal animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const closeBtns = document.querySelectorAll('.close');
+            const showRegisterLink = document.getElementById('showRegister');
+            const showLoginLink = document.getElementById('showLogin');
+            
+            loginBtn.addEventListener('click', function() {
+                loginModal.style.display = 'block';
+                document.querySelector('#loginModal .modal-content').classList.add('active');
+            });
+            
+            registerBtn.addEventListener('click', function() {
+                registerModal.style.display = 'block';
+                document.querySelector('#registerModal .modal-content').classList.add('active');
+            });
+            
+            closeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                    this.closest('.modal-content').classList.remove('active');
+                });
+            });
+            
+            showRegisterLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.style.display = 'none';
+                document.querySelector('#loginModal .modal-content').classList.remove('active');
+                setTimeout(() => {
+                    registerModal.style.display = 'block';
+                    document.querySelector('#registerModal .modal-content').classList.add('active');
+                }, 300);
+            });
+            
+            showLoginLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                registerModal.style.display = 'none';
+                document.querySelector('#registerModal .modal-content').classList.remove('active');
+                setTimeout(() => {
+                    loginModal.style.display = 'block';
+                    document.querySelector('#loginModal .modal-content').classList.add('active');
+                }, 300);
+            });
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === loginModal) {
+                    loginModal.style.display = 'none';
+                    document.querySelector('#loginModal .modal-content').classList.remove('active');
+                }
+                if (e.target === registerModal) {
+                    registerModal.style.display = 'none';
+                    document.querySelector('#registerModal .modal-content').classList.remove('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html> 
